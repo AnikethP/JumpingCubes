@@ -1,7 +1,7 @@
 public class hw0 {
     public static int max(int[] a)
     {
-        max = a[0];
+        int max = a[0];
         for(int i = 0; i < a.length; i++)
         {
             if(a[i] > max)
