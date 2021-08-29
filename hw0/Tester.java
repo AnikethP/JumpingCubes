@@ -20,25 +20,24 @@ public class Tester {
      * class and figure out how to call them from here.  You'll have
      * to modify the calls to max, threeSum, and threeSumDistinct to
      * get them to work, but it's all good practice! */
-    hw0 hw0 = new hw0();
     @Test
     public void maxTest() {
         // Change call to max to make this call yours.
-        assertEquals(14, hw0.max(new int[] { 0, -5, 2, 14, 10 }));
+        assertEquals(14, Funcs.max(new int[] { 0, -5, 2, 14, 10 }));
         // REPLACE THIS WITH MORE TESTS.
     }
 
     @Test
     public void threeSumTest() {
         // Change call to threeSum to make this call yours.
-        assertTrue(hw0.threeSum(new int[] { -6, 3, 10, 200 }));
+        assertTrue(Funcs.threeSum(new int[] { -6, 3, 10, 200 }));
         // REPLACE THIS WITH MORE TESTS.
     }
 
     @Test
     public void threeSumDistinctTest() {
         // Change call to threeSumDistinct to make this call yours.
-        assertFalse(hw0.threeSumDistinct(new int[] { -6, 3, 10, 200 }));
+        assertFalse(Funcs.threeSumDistinct(new int[] { -6, 3, 10, 200 }));
         // REPLACE THIS WITH MORE TESTS.
     }
 

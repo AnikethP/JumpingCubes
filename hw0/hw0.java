@@ -1,4 +1,4 @@
-public class hw0 {
+public class Funcs {
     public static int max(int[] a)
     {
         int max = a[0];
