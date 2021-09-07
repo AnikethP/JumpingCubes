@@ -5,12 +5,26 @@ public class MultiArrTest {
 
     @Test
     public void testMaxValue() {
-        //TODO: Your code here!
+        int[][] nums = {
+                        {-303434, 4},
+                        {5, 344},
+                        {2, 3},
+                        };
+        assertEquals(MultiArr.maxValue(nums), 344);
     }
 
     @Test
     public void testAllRowSums() {
-        //TODO: Your code here!
+        int[][] nums = {
+                {1, 2, 3 },
+                {2, 4, 6},
+                {3, 4, 5},
+        };
+
+        int[] result = {6, 12, 12};
+
+
+        assertArrayEquals(MultiArr.allRowSums(nums), result);
     }
 
 

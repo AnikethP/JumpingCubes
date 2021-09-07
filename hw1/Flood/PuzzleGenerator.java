@@ -12,10 +12,10 @@ class PuzzleGenerator {
     }
 
     public Model getPuzzle(int width, int height, int ncolors, int extra) {
-        int[][] puzzle = new int[width][height];
+        int[][] puzzle = new int[height][width];
         for (int[] row : puzzle) {
             for (int col = 0; col < height; col += 1) {
-                row[col] = _random.nextInt(9);
+                row[col] = _random.nextInt(ncolors);
             }
         }
         Model model = new Model(puzzle, ncolors);
