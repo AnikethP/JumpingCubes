@@ -16,12 +16,10 @@ public class MultiArrTest {
     @Test
     public void testAllRowSums() {
         int[][] nums = {
-                {1, 2, 3 },
-                {2, 4, 6},
-                {3, 4, -3},
+                {1, 2, 3, 4, 5, -2},
         };
 
-        int[] result = {6, 12, 4};
+        int[] result = {13};
 
 
         assertArrayEquals(MultiArr.allRowSums(nums), result);
