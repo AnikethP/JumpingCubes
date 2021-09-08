@@ -23,7 +23,7 @@ public class MultiArr {
     */
     public static int maxValue(int[][] arr) {
         //TODO: Your code here!
-        if(arr == null)
+        if(arr == null || arr.length == 0)
         {
             return 0;
         }
@@ -52,6 +52,9 @@ public class MultiArr {
             int runningSum = 0;
             for (int j = 0; j < arr[0].length; j++)
             {
+                System.out.println(i);
+                System.out.println(j);
+                System.out.println(arr.length + " " + arr[0].length);
                 runningSum += arr[i][j];
             }
             lst[i] = runningSum;
