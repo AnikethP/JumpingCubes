@@ -30,7 +30,7 @@ public class MultiArr {
         int maximum = Integer.MIN_VALUE;
         for (int i = 0; i < arr.length; i++ )
         {
-            for (int j = 0; j < arr[0].length; j++)
+            for (int j = 0; j < arr[i].length; j++)
             {
                 if (arr[i][j] > maximum)
                 {
@@ -50,11 +50,8 @@ public class MultiArr {
        for(int i = 0; i < arr.length; i++)
         {
             int runningSum = 0;
-            for (int j = 0; j < arr[0].length; j++)
+            for (int j = 0; j < arr[i].length; j++)
             {
-                System.out.println(i);
-                System.out.println(j);
-                System.out.println(arr.length + " " + arr[0].length);
                 runningSum += arr[i][j];
             }
             lst[i] = runningSum;
