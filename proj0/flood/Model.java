@@ -294,9 +294,10 @@ class Model {
         }
         _active = sameColorRegion(0, 0);
         _current += 1;
-        _history.add(new GameState());
-        _history.get(_history.size() - 1).saveState();
+        _history.add(_current, new GameState());
         _lastHistory = _history.size() - 1;
+        _history.get(_lastHistory).saveState();
+
     }
 
     /**
