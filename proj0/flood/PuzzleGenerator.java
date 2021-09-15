@@ -5,7 +5,7 @@ import java.util.Random;
 import static flood.Utils.*;
 
 /** A creator of random Flood puzzles.
- *  @author
+ *  @author Aniketh Prasad
  */
 class PuzzleGenerator implements PuzzleSource {
 
@@ -17,7 +17,16 @@ class PuzzleGenerator implements PuzzleSource {
 
     @Override
     public Model getPuzzle(int width, int height, int ncolors, int extra) {
-        return null; // FIXME
+        int[][] puzzle = new int[height][width];
+        for (int[] row : puzzle) {
+            for (int col = 0; col < height; col += 1) {
+                row[col] = _random.nextInt(ncolors);
+            }
+        }
+        Model model = new Model(puzzle, ncolors);
+        model.setLimit(Solver.movesNeeded(model) + extra);
+        return model;
+
     }
 
 

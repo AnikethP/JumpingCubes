@@ -23,10 +23,6 @@ public class MultiArr {
     */
     public static int maxValue(int[][] arr) {
         //TODO: Your code here!
-        if(arr == null || arr.length == 0)
-        {
-            return 0;
-        }
         int maximum = Integer.MIN_VALUE;
         for (int i = 0; i < arr.length; i++ )
         {
