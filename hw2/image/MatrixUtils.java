@@ -55,7 +55,52 @@ public class MatrixUtils {
      */
 
     public static double[][] accumulateVertical(double[][] m) {
-        return null; //your code here
+        //create copy array to return
+        double[][] copy = new double[m.length][m[0].length];
+
+        for(int i = 0; i < m.length; i++)
+        {
+            for (int j = 0; j < m[i].length; j++)
+            {
+                copy[i][j] = m[i][j];
+
+
+            }
+        }
+
+        //Traverse through
+
+        for (int i = 0; i < copy.length; i++)
+        {
+            for (int j = 0; j < copy[i].length; j++)
+            {
+                if(i >0)
+                {
+                    int left = j - 1;
+                    int same = j;
+                    int right = j + 1;
+
+                    double leftVal = Integer.MAX_VALUE;
+                    double rightVal = Integer.MAX_VALUE;
+                    double aboveVal = copy[i-1][j];
+                    if (left > 0)
+                    {
+                        leftVal = copy[i-1][left];
+                    }
+                    if (right < copy[i].length)
+                    {
+                        rightVal = copy[i-1][right];
+                    }
+
+
+                    copy[i][j] = Math.min(Math.min(leftVal, rightVal), aboveVal) + copy[i][j];
+
+                }
+            }
+        }
+        return copy;
+
+         //your code here
     }
 
     /** Non-destructively accumulates a matrix M along the specified
@@ -82,9 +127,31 @@ public class MatrixUtils {
      */
 
     public static double[][] accumulate(double[][] m, Orientation orientation) {
-        return null; //your code here
+        if(orientation == Orientation.VERTICAL)
+        {
+            return accumulateVertical(m);
+        }
+        else
+        {
+            double[][] newArr = new double[m[0].length][m.length];
+            MatrixUtils.transpose(m, newArr);
+            double[][] arr= accumulateVertical(newArr);
+            double[][] returnArr = new double[arr[0].length][arr.length];
+            MatrixUtils.transpose(arr, returnArr);
+            return returnArr;
+        }
     }
 
+    static void transpose(double[][] oldArr, double[][] newArr)
+    {
+        for(int i = 0; i < newArr.length; i++)
+        {
+            for(int j = 0; j < newArr[0].length; j++)
+            {
+                newArr[i][j] = oldArr[j][i];
+            }
+        }
+    }
     /** Finds the vertical seam VERTSEAM of the given matrix M.
      *
      *  Potentially useful helper function: Something that takes

@@ -1,5 +1,8 @@
+
 package lists;
 
+import java.util.ArrayList;
+import java.util.List;
 /* NOTE: The file Utils.java contains some functions that may be useful
  * in testing your answers. */
 
@@ -20,6 +23,53 @@ class Lists {
      *  original list pointed to by L. */
     static IntListList naturalRuns(IntList L) {
         /* *Replace this body with the solution. */
-        return null;
+        if(L == null)
+        {
+            return null;
+        }
+        ArrayList<Integer> nums = new ArrayList<Integer>();
+
+        while(L != null)
+        {
+            nums.add(L.head);
+            L = L.tail;
+        }
+        int highest = Integer.MIN_VALUE;
+        ArrayList<ArrayList<Integer>> master = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> curr = new ArrayList<Integer>();
+        for(int num : nums)
+        {
+            if(num <= highest)
+            {
+
+                master.add(curr);
+                curr = new ArrayList<Integer>();
+                //System.out.println(num);
+                highest = num;
+            }
+            else
+            {
+                highest = num;
+                //System.out.println(num);
+
+            }
+            curr.add(num);
+
+        }
+        master.add(curr);
+        int[][] array = new int[master.size()][];
+        for (int i = 0; i < master.size(); i++) {
+            ArrayList<Integer> row = master.get(i);
+
+            int[] temp = new int[row.size()];
+            for (int j = 0; j < row.size(); j++)
+            {
+
+                temp[j] = row.get(j);
+            }
+            array[i] = temp;
+        }
+
+        return IntListList.list(array);
     }
 }
