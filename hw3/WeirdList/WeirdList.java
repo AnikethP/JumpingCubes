@@ -5,7 +5,7 @@ public class WeirdList {
     /** The empty sequence of integers. */
     private int head;
     private WeirdList tail;
-    public static final Empty EMPTY = new Empty();  // TODO: REPLACE THIS LINE
+    public static final WeirdList EMPTY = new Empty();  // TODO: REPLACE THIS LINE
 
     /** A new WeirdList whose head is HEAD and tail is TAIL. */
     private WeirdList() {};
