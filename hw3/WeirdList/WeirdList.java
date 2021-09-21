@@ -1,20 +1,24 @@
 /** A WeirdList holds a sequence of integers.
- * @author your name here
+ * @author Aniketh Prasad
  */
 public class WeirdList {
     /** The empty sequence of integers. */
-    public static final WeirdList EMPTY =
-        null;  // TODO: REPLACE THIS LINE
+    private int head;
+    private WeirdList tail;
+    public static final Empty EMPTY = new Empty();  // TODO: REPLACE THIS LINE
 
     /** A new WeirdList whose head is HEAD and tail is TAIL. */
+    private WeirdList() {};
     public WeirdList(int head, WeirdList tail) { 
-        /* TODO: FILL IN */ 
+        /* TODO: FILL IN */
+        this.head = head;
+        this.tail = tail;
     }
 
     /** Returns the number of elements in the sequence that
      *  starts with THIS. */
     public int length() {
-        return 0;  // TODO: REPLACE THIS LINE
+        return 1 + (tail.toString().length())/2;  // TODO: REPLACE THIS LINE
     }
 
     /** Return a string containing my contents as a sequence of numerals
@@ -22,13 +26,13 @@ public class WeirdList {
      *  5, 4, and 2, this returns " 5 4 2". */
     @Override
     public String toString() {
-        return ""; // TODO: REPLACE THIS LINE
+        return " " + head + tail; // TODO: REPLACE THIS LINE
     }
 
     /** Part 3b: Apply FUNC.apply to every element of THIS WeirdList in
      *  sequence, and return a WeirdList of the resulting values. */
     public WeirdList map(IntUnaryFunction func) {
-        return null;  // TODO: REPLACE THIS LINE
+        return new WeirdList(func.apply(this.head), tail.map(func));  // TODO: REPLACE THIS LINE
     }
 
     /*
@@ -61,7 +65,22 @@ public class WeirdList {
      * }
      * You are NOT required to do this, just an extra thing you can
      * do if you want to avoid making a separate .java file. */
+    private static class Empty extends WeirdList
+    {
+        String rep;
 
+        public Empty()
+        {
+            this.rep = "";
+        }
+
+        public WeirdList map(IntUnaryFunction func)
+        {
+            return this;
+        }
+        @Override
+        public String toString() { return "";};
+    }
 }
 
 /*

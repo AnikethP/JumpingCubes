@@ -3,14 +3,31 @@ class WeirdListClient {
 
     /** Return the result of adding N to each element of L. */
     static WeirdList add(WeirdList L, int n) {
-        return null; // TODO: REPLACE THIS LINE
+        return L.map(a -> n + a); // TODO: REPLACE THIS LINE
     }
 
     /** Return the sum of all the elements in L. */
     static int sum(WeirdList L) {
-        return 0; // TODO: REPLACE THIS LINE
+        NewFunction func = new NewFunction();
+        L.map(func);
+        return func.getSum(); // TODO: REPLACE THIS LINE
     }
 
+    private static class NewFunction implements IntUnaryFunction
+    {
+        private int sum = 0;
+        @Override
+
+        public int apply(int x) {
+            sum+=x;
+            return sum;
+        }
+
+        public int getSum()
+        {
+            return sum;
+        }
+    }
     /* IMPORTANT: YOU ARE NOT ALLOWED TO USE RECURSION IN ADD AND SUM
      *
      * As with WeirdList, you'll need to add an additional class or
