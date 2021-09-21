@@ -32,9 +32,10 @@ public class TrReader extends Reader {
      */
     public int read(char[] cbuf, int off, int len) throws java.io.IOException
     {
+
         int a = readerString.read(cbuf, off, len);
 
-        for(int i = off; i < a; i++)
+        for(int i = off; i < off+len; i++)
         {
             for(int j = 0; j < fromArr.length(); j++)
             {

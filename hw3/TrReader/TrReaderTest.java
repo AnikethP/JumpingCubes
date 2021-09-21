@@ -35,6 +35,15 @@ public class TrReaderTest {
         assertEquals(250, trR.read(cbuf));
         String result = new String(cbuf);
         assertEquals(TRANSLATION.substring(0, 250), result);
+
+        Reader a = new StringReader("abcBc");
+        trR = new TrReader(a, "abc", "ABC");
+        char[] test = new char[5];
+
+        assertEquals(5, trR.read(test));
+        result = new String(test);
+        assertEquals("ABCBC", result);
+
     }
 
     /** Return a StringReader that contains the contents delivered by R,
