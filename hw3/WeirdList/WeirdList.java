@@ -18,7 +18,7 @@ public class WeirdList {
     /** Returns the number of elements in the sequence that
      *  starts with THIS. */
     public int length() {
-        return 1 + (tail.toString().length())/2;  // TODO: REPLACE THIS LINE
+        return 1 + tail.length();  // TODO: REPLACE THIS LINE
     }
 
     /** Return a string containing my contents as a sequence of numerals
@@ -80,6 +80,11 @@ public class WeirdList {
         }
         @Override
         public String toString() { return "";};
+
+        public int length()
+        {
+            return 0;
+        }
     }
 }
 
