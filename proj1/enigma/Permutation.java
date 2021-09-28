@@ -1,10 +1,10 @@
 package enigma;
 
 import static enigma.EnigmaException.*;
-
+import java.util.ArrayList;
 /** Represents a permutation of a range of integers starting at 0 corresponding
  *  to the characters of an alphabet.
- *  @author
+ *  @author Aniketh Prasad
  */
 class Permutation {
 
@@ -15,13 +15,27 @@ class Permutation {
      *  Whitespace is ignored. */
     Permutation(String cycles, Alphabet alphabet) {
         _alphabet = alphabet;
+        //char[] cyclesChar = cycles.toCharArray();
+        //"(ABCD) (FG) (FH)"
+        addCycle(cycles);
         // FIXME
     }
 
     /** Add the cycle c0->c1->...->cm->c0 to the permutation, where CYCLE is
      *  c0c1...cm. */
     private void addCycle(String cycle) {
-        // FIXME
+        String curr = "";
+        for(int i = 0; i < cycle.length(); i++) {
+            if(cycle.charAt(i) == ')')
+            {
+                _cycles.add(curr);
+                curr = "";
+            }
+            else if(Character.isDigit(cycle.charAt(i)) || Character.isLetter(cycle.charAt(i)))
+            {
+                curr += cycle.charAt(i);
+            }
+        }
     }
 
     /** Return the value of P modulo the size of this permutation. */
@@ -35,13 +49,35 @@ class Permutation {
 
     /** Returns the size of the alphabet I permute. */
     int size() {
-        return 0; // FIXME
+        return _alphabet.size(); // FIXME
     }
 
     /** Return the result of applying this permutation to P modulo the
      *  alphabet size. */
     int permute(int p) {
-        return 0;  // FIXME
+        int pMod = wrap(p);
+        char x = _alphabet.toChar(p);
+
+        for(String s : _cycles)
+        {
+            for(int i = 0; i < s.length(); i++)
+            {
+                if(s.charAt(i) == x)
+                {
+                    if(i == s.length()-1)
+                    {
+                        return _alphabet.toInt(s.charAt(0));
+                    }
+                    else
+                    {
+                        return _alphabet.toInt(s.charAt(i+1));
+                    }
+                }
+            }
+        }
+        return p;
+        // FIXME
+
     }
 
     /** Return the result of applying the inverse of this permutation
@@ -74,6 +110,6 @@ class Permutation {
 
     /** Alphabet of this permutation. */
     private Alphabet _alphabet;
-
+    private ArrayList<String> _cycles = new ArrayList<String>();
     // FIXME: ADDITIONAL FIELDS HERE, AS NEEDED
 }
