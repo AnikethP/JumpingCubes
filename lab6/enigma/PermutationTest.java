@@ -14,8 +14,8 @@ import static enigma.TestUtils.*;
  * this class concrete by removing the 4 abstract keywords and implementing the
  * 3 abstract methods.
  *
- *  @author
- */
+ *  @author Aniketh Prasad
+ *  */
 public abstract class PermutationTest {
 
     /**
@@ -82,5 +82,72 @@ public abstract class PermutationTest {
         checkPerm("identity", UPPER_STRING, UPPER_STRING, perm, alpha);
     }
 
+
     // FIXME: Add tests here that pass on a correct Permutation and fail on buggy Permutations.
+    @Test
+    public void testInvertChar() {
+        Permutation p = getNewPermutation("(BACD)", getNewAlphabet("ABCD"));
+        /* TODO: Add additional assert statements here! */
+        assertEquals('B', p.invert('A'));
+        assertEquals(1, p.invert(0));
+        assertEquals('D', p.invert('B'));
+        assertEquals(3, p.invert(1));
+        checkPerm("Test1:", "ABCD", "BACD", p, getNewAlphabet("ABCD"));
+
+        Permutation x = getNewPermutation("(BACD)", getNewAlphabet("ABCDEF"));
+        assertEquals('E', p.invert('E'));
+        assertEquals(4, p.invert(4));
+    }
+
+    @Test
+    public void testSize() {
+        Alphabet a = getNewAlphabet("");
+        Alphabet b = getNewAlphabet("ABCDEFG");
+        Permutation p = getNewPermutation("(BACDEFG)", b);
+        Permutation s = getNewPermutation("", a);
+        assertEquals(7, p.size());
+        assertEquals(0, s.size());
+    }
+
+    @Test
+    public void testPermute() {
+        Permutation p = getNewPermutation("(BACD)", getNewAlphabet("ABCD"));
+        /* TODO: Add additional assert statements here! */
+        assertEquals('D', p.permute('C'));
+        assertEquals(3, p.permute(2));
+        assertEquals('B', p.permute('D'));
+        assertEquals(1, p.permute(3));
+        checkPerm("Test1:", "ABCD", "BACD", p, getNewAlphabet("ABCD"));
+
+        Permutation x = getNewPermutation("(BACD)", getNewAlphabet("ABCDEF"));
+        assertEquals('E', p.permute('E'));
+        assertEquals(4, p.permute(4));
+    }
+
+    @Test
+    public void testDerangement() {
+        Permutation p = getNewPermutation("(BACD)", getNewAlphabet("ABCDEF") );
+        assertFalse(p.derangement());
+
+        Permutation y = getNewPermutation("(DCBA)", getNewAlphabet("ABCD"));
+        assertTrue(p.derangement());
+    }
+
+    @Test
+    public void testAlphabet() {
+        Permutation p = getNewPermutation("(BACD)", getNewAlphabet("ABCDEF"));
+        Alphabet a = getNewAlphabet("ABCDEF");
+
+        for(int i = 0; i < 6; i++){
+            assertEquals(a.toChar(i), p.alphabet().toChar(i));
+        }
+
+    }
+
+    @Test(expected = EnigmaException.class)
+    public void testNotInAlphabet() {
+        Permutation p = getNewPermutation("(BACD)", getNewAlphabet("ABCD"));
+        p.invert('F');
+    }
+
 }
