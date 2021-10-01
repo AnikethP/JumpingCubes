@@ -101,6 +101,9 @@ public abstract class PermutationTest {
         Permutation x = getNewPermutation("(BACD)", getNewAlphabet("ABCDEF"));
         assertEquals('E', x.invert('E'));
         assertEquals(4, x.invert(4));
+
+        Permutation l = getNewPermutation("(ABCD) (EFG) (HIJ) (K) (LMNO)", getNewAlphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+        checkPerm("Test1:", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "BCDAFGEIJHKMNOLPQRSTUVWXYZ", l, l.alphabet());
     }
 
     @Test
