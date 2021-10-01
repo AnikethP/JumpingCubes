@@ -92,7 +92,7 @@ public abstract class PermutationTest {
         assertEquals(1, p.invert(0));
         assertEquals('D', p.invert('B'));
         assertEquals(3, p.invert(1));
-        checkPerm("Test1:", "ABCD", "BACD", p, p.alphabet());
+        checkPerm("Test1:", "ABCD", "CADB", p, p.alphabet());
 
         Permutation x = getNewPermutation("(BACD)", getNewAlphabet("ABCDEF"));
         assertEquals('E', x.invert('E'));
