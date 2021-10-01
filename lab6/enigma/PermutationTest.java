@@ -92,7 +92,7 @@ public abstract class PermutationTest {
         assertEquals(1, p.invert(0));
         assertEquals('D', p.invert('B'));
         assertEquals(3, p.invert(1));
-        //checkPerm("Test1:", "ABCD", "BACD", p, getNewAlphabet("ABCD"));
+        checkPerm("Test1:", "ABCD", "BACD", p, p.alphabet());
 
         Permutation x = getNewPermutation("(BACD)", getNewAlphabet("ABCDEF"));
         assertEquals('E', x.invert('E'));
@@ -128,6 +128,9 @@ public abstract class PermutationTest {
     public void testDerangement() {
         Permutation p = getNewPermutation("(BACD) (E)", getNewAlphabet("ABCDEF") );
         assertFalse(p.derangement());
+
+        Permutation l = getNewPermutation("(BACD)", getNewAlphabet("ABCDEF") );
+        assertFalse(l.derangement());
 
         Permutation y = getNewPermutation("(DCBA)", getNewAlphabet("ABCD"));
         assertTrue(y.derangement());
