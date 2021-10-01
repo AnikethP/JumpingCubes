@@ -73,6 +73,10 @@ public abstract class PermutationTest {
         }
     }
 
+    private void checkNoRepeats()
+    {
+
+    }
     /* ***** TESTS ***** */
 
     @Test
@@ -151,6 +155,12 @@ public abstract class PermutationTest {
     public void testNotInAlphabet() {
         Permutation p = getNewPermutation("(BACD)", getNewAlphabet("ABCD"));
         p.invert('F');
+
+    }
+    @Test(expected = EnigmaException.class)
+    public void testInvalidPermutation() {
+        Permutation x = getNewPermutation("(BACDB)", getNewAlphabet("ABCD"));
+        x.invert('B');
     }
 
 }
