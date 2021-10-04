@@ -7,7 +7,7 @@ public class P2Pattern {
     public static String P1 = "([1-9]||[0][1-9]||[1][0-2])[/]([1-9]||[0][1-9]||[1-2][1-9]||[3][0-1])[/][0-9][0-9][0-9][0-9]"; //FIXME: Add your regex here
 
     /** Pattern to match 61b notation for literal IntLists. */
-    public static String P2 = "[(]([0-9]+[,][ ]+)+[0-9]+[)]"; //FIXME: Add your regex here
+    public static String P2 = "[(]([0-9]+[,][ ]+){0,}[0-9]+[)]"; //FIXME: Add your regex here
 
     /* Pattern to match a valid domain name. Eg: www.support.facebook-login.com */
     public static String P3 = ""; //FIXME: Add your regex here
