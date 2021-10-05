@@ -79,10 +79,21 @@ public final class Main {
     private void process() {
         Machine mech = readConfig();
         while(_input.hasNextLine()){
-
-            setUp(mech, _input.nextLine());
+            String y = _input.nextLine();
+            //System.out.println("Settings: " + y);
+            if(y.charAt(0) != '*'){
+                throw new EnigmaException("Bad settings");
+            }
+            setUp(mech, y);
             System.setOut(_output);
-            printMessageLine(mech.convert(_input.nextLine()));
+            String x = "";
+            while(_input.hasNext("([A-z]+|[ ]+)")){
+                x = _input.nextLine();
+                //System.out.println("x: " + x);
+                printMessageLine(mech.convert(x));
+            }
+
+
         }
 
 
@@ -152,9 +163,9 @@ public final class Main {
         // FIXME
         Scanner scanString = new Scanner(settings);
         String x = scanString.next();
-        if (!x.equals("*")){
-            throw new EnigmaException("Invalid settings");
-        }
+ //       if (!x.equals("*")){
+   //         throw new EnigmaException("Invalid settings");
+     //   }
         String[] rotors = new String[M.numRotors()];
         for(int i = 0; i < M.numRotors(); i++){
             rotors[i] = scanString.next();
@@ -174,6 +185,7 @@ public final class Main {
         else{
             M.setPlugboard(new Permutation("", _alphabet));
         }
+
 
 
 
