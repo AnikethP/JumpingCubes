@@ -22,5 +22,21 @@ class Reflector extends FixedRotor {
             throw error("reflector has only one position");
         }
     }
+    @Override
+    public String toString() {
+        return "Reflector " + name();
+    }
 
+    @Override
+    int convertForward(int p) {
+        int convert = permutation().permute(p);  //Permute setting
+        return permutation().wrap(convert);
+    }
+
+    @Override
+    int convertBackward(int e) {
+        int convert = permutation().invert(e);  //Permute setting
+        return permutation().wrap(convert);
+
+    }
 }

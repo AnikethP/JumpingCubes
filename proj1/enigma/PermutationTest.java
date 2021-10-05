@@ -51,4 +51,64 @@ public class PermutationTest {
         checkPerm("identity", UPPER_STRING, UPPER_STRING);
     }
 
+    @Test
+    public void testSize() {
+        Alphabet a = new Alphabet("");
+        Alphabet b = new Alphabet("ABCDEFG");
+        Permutation p = new Permutation("(BACDEFG)", b);
+        Permutation s = new Permutation("", a);
+        assertEquals(7, p.size());
+        assertEquals(0, s.size());
+    }
+
+    @Test
+    public void testPermute() {
+        Permutation p = new Permutation("(BACD)", new Alphabet("ABCD"));
+        /* TODO: Add additional assert statements here! */
+        assertEquals('D', p.permute('C'));
+        assertEquals(3, p.permute(2));
+        assertEquals('B', p.permute('D'));
+        assertEquals(1, p.permute(3));
+        //checkPerm("Test1:", "ABCD", "BACD", p, new Alphabet("ABCD"));
+
+        Permutation x = new Permutation("(BACD)", new Alphabet("ABCDEF"));
+        assertEquals('E', x.permute('E'));
+        assertEquals(4, x.permute(4));
+    }
+
+    @Test
+    public void testDerangement() {
+        Permutation p = new Permutation("(BACD) (E)", new Alphabet("ABCDEF") );
+        assertFalse(p.derangement());
+
+        Permutation l = new Permutation("(BACD)", new Alphabet("ABCDEF") );
+        assertFalse(l.derangement());
+
+        Permutation y = new Permutation("(DCBA)", new Alphabet("ABCD"));
+        assertTrue(y.derangement());
+    }
+
+    @Test
+    public void testAlphabet() {
+        Permutation p = new Permutation("(BACD)", new Alphabet("ABCDEF"));
+        Alphabet a = new Alphabet("ABCDEF");
+
+        for(int i = 0; i < 6; i++){
+            assertEquals(a.toChar(i), p.alphabet().toChar(i));
+        }
+
+    }
+
+    @Test(expected = EnigmaException.class)
+    public void testNotInAlphabet() {
+        Permutation p = new Permutation("(BACD)", new Alphabet("ABCD"));
+        p.invert('F');
+
+    }
+    @Test(expected = EnigmaException.class)
+    public void testInvalidPermutation() {
+        Permutation x = new Permutation("(BACDB)", new Alphabet("ABCD"));
+        x.invert('B');
+    }
+
 }

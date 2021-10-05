@@ -19,10 +19,24 @@ class Permutation {
         //"(ABCD) (FG) (FH)"
         addCycle(cycles);
         // FIXME
+        testCycle();
     }
 
     /** Add the cycle c0->c1->...->cm->c0 to the permutation, where CYCLE is
      *  c0c1...cm. */
+    private void testCycle() throws EnigmaException{
+        ArrayList<Character> chars = new ArrayList<>();
+        for(String s : _cycles)
+        {
+            for(int i = 0; i<s.length(); i++) {
+                if (chars.contains(s.charAt(i))) {
+                    throw new EnigmaException("Invalid Permutation");
+                } else {
+                    chars.add(s.charAt(i));
+                }
+            }
+        }
+    }
     private void addCycle(String cycle) {
         String curr = "";
         for(int i = 0; i < cycle.length(); i++) {
@@ -54,10 +68,17 @@ class Permutation {
 
     /** Return the result of applying this permutation to P modulo the
      *  alphabet size. */
-    int permute(int p) {
+    int permute(int p) throws EnigmaException{
+        if(!_alphabet.contains(_alphabet.toChar(p)))
+        {
+            throw new EnigmaException("Not In Alphabet");
+        }
         int pMod = wrap(p);
-        char x = _alphabet.toChar(p);
-
+        char x = _alphabet.toChar(pMod);
+        if(!_alphabet.contains(_alphabet.toChar(pMod)))
+        {
+            throw new EnigmaException("Not In Alphabet");
+        }
         for(String s : _cycles)
         {
             for(int i = 0; i < s.length(); i++)
@@ -75,26 +96,63 @@ class Permutation {
                 }
             }
         }
-        return p;
+        return pMod;
         // FIXME
 
     }
 
     /** Return the result of applying the inverse of this permutation
      *  to  C modulo the alphabet size. */
-    int invert(int c) {
-        return 0;  // FIXME
+    int invert(int c) throws EnigmaException{
+        if(!_alphabet.contains(_alphabet.toChar(c)))
+        {
+            throw new EnigmaException("Not In Alphabet");
+        }
+        int cMod = wrap(c);
+        char x = _alphabet.toChar(cMod);
+
+        for (String s : _cycles)
+        {
+            for(int i = s.length()-1; i>= 0; i--)
+            {
+                if(s.charAt(i) == x)
+                {
+                    if(i == 0)
+                    {
+                        return _alphabet.toInt(s.charAt(s.length()-1));
+                    }
+                    else
+                    {
+                        return _alphabet.toInt(s.charAt(i-1));
+                    }
+                }
+            }
+        }
+        return cMod;
+
+
+        // FIXME
     }
 
     /** Return the result of applying this permutation to the index of P
      *  in ALPHABET, and converting the result to a character of ALPHABET. */
     char permute(char p) {
-        return 0;  // FIXME
+        int pInt = _alphabet.toInt(p);
+        if (pInt == -1)
+        {
+            throw new EnigmaException("Not In Alphabet");
+        }
+        return _alphabet.toChar(permute(pInt));
     }
 
     /** Return the result of applying the inverse of this permutation to C. */
-    char invert(char c) {
-        return 0;  // FIXME
+    char invert(char c) throws EnigmaException {
+        int cInt = _alphabet.toInt(c);
+        if (cInt == -1)
+        {
+            throw new EnigmaException("Not In Alphabet");
+        }
+        return _alphabet.toChar(invert(cInt));
     }
 
     /** Return the alphabet used to initialize this Permutation. */
@@ -105,7 +163,16 @@ class Permutation {
     /** Return true iff this permutation is a derangement (i.e., a
      *  permutation for which no value maps to itself). */
     boolean derangement() {
-        return true;  // FIXME
+        for(int i = 0; i<_alphabet.size(); i++)
+        {
+            if(permute(_alphabet.toChar(i)) == _alphabet.toChar(i)){
+                return false;
+            }
+        }
+        return true;
+
+
+        // FIXME
     }
 
     /** Alphabet of this permutation. */

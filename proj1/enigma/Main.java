@@ -4,14 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.LinkedList;
 
 import static enigma.EnigmaException.*;
 
 /** Enigma simulator.
- *  @author
+ *  @author Aniketh Prasad
  */
 public final class Main {
 
@@ -77,7 +77,15 @@ public final class Main {
      *  file _config and apply it to the messages in _input, sending the
      *  results to _output. */
     private void process() {
-        // FIXME
+        Machine mech = readConfig();
+        while(_input.hasNextLine()){
+
+            setUp(mech, _input.nextLine());
+            System.setOut(_output);
+            _output.println(mech.convert(_input.nextLine()));
+        }
+
+
     }
 
     /** Return an Enigma machine configured from the contents of configuration
@@ -85,8 +93,39 @@ public final class Main {
     private Machine readConfig() {
         try {
             // FIXME
-            _alphabet = new Alphabet();
-            return new Machine(_alphabet, 2, 1, null);
+            Scanner scanFile = _config;
+            _alphabet = new Alphabet(scanFile.nextLine());
+            int slots = scanFile.nextInt();
+            int pawls = scanFile.nextInt();
+
+            LinkedList<Rotor> allRotors = new LinkedList<>();
+            scanFile.nextLine();
+            while(scanFile.hasNextLine()){
+                String name = scanFile.next();
+                String info = scanFile.next();
+                String type = info.substring(0,1);
+
+                Permutation p = new Permutation(scanFile.nextLine(), _alphabet);
+                String notches = "";
+                if(info.length() > 1){
+                    notches = info.substring(1);
+
+                }
+
+                if(type.equals("M")){
+                    allRotors.add(new MovingRotor(name, p, notches));
+                }
+
+                if(type.equals("N")){
+                    allRotors.add(new FixedRotor(name, p));
+                }
+
+                if(type.equals("R")){
+                    allRotors.add(new Reflector(name, p));
+                }
+            }
+
+            return new Machine(_alphabet, slots, pawls, allRotors);
         } catch (NoSuchElementException excp) {
             throw error("configuration file truncated");
         }
@@ -105,12 +144,35 @@ public final class Main {
      *  which must have the format specified in the assignment. */
     private void setUp(Machine M, String settings) {
         // FIXME
+        Scanner scanString = new Scanner(settings);
+        scanString.next();
+        String[] rotors = new String[M.numRotors()];
+        for(int i = 0; i < M.numRotors(); i++){
+            rotors[i] = scanString.next();
+        }
+        M.insertRotors(rotors);
+
+        String notches = scanString.next();
+        M.setRotors(notches);
+        //System.out.println(notches);
+        if(scanString.hasNextLine()){
+            String rest = scanString.nextLine();
+            M.setPlugboard(new Permutation(rest, _alphabet));
+        }
+        else{
+            M.setPlugboard(new Permutation("", _alphabet));
+        }
+
+
+
+
     }
 
     /** Print MSG in groups of five (except that the last group may
      *  have fewer letters). */
     private void printMessageLine(String msg) {
         // FIXME
+        System.out.println("msg");
     }
 
     /** Alphabet used in this machine. */
