@@ -174,7 +174,11 @@ class Permutation {
 
         // FIXME
     }
-
+    void getCycles(){
+        for(String k : _cycles){
+            System.out.print(" " + k + " ");
+        }
+    }
     /** Alphabet of this permutation. */
     private Alphabet _alphabet;
     private ArrayList<String> _cycles = new ArrayList<String>();

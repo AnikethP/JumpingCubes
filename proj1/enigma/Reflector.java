@@ -29,7 +29,10 @@ class Reflector extends FixedRotor {
 
     @Override
     int convertForward(int p) {
+        //System.out.print(" " + alphabet().toChar(p) + " ");
+        //permutation().getCycles();
         int convert = permutation().permute(p);  //Permute setting
+        //System.out.print(" " + alphabet().toChar(convert) + " ");
         return permutation().wrap(convert);
     }
 

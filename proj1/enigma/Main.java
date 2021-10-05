@@ -82,7 +82,7 @@ public final class Main {
 
             setUp(mech, _input.nextLine());
             System.setOut(_output);
-            _output.println(mech.convert(_input.nextLine()));
+            printMessageLine(mech.convert(_input.nextLine()));
         }
 
 
@@ -105,7 +105,13 @@ public final class Main {
                 String info = scanFile.next();
                 String type = info.substring(0,1);
 
-                Permutation p = new Permutation(scanFile.nextLine(), _alphabet);
+                String perm = "";
+                perm += scanFile.nextLine();
+                //System.out.println(scanFile.hasNext("[(].*"));
+                while(scanFile.hasNext("[(].*")){
+                    perm += scanFile.nextLine();
+                }
+                Permutation p = new Permutation(perm, _alphabet);
                 String notches = "";
                 if(info.length() > 1){
                     notches = info.substring(1);
@@ -142,10 +148,13 @@ public final class Main {
 
     /** Set M according to the specification given on SETTINGS,
      *  which must have the format specified in the assignment. */
-    private void setUp(Machine M, String settings) {
+    private void setUp(Machine M, String settings) throws EnigmaException{
         // FIXME
         Scanner scanString = new Scanner(settings);
-        scanString.next();
+        String x = scanString.next();
+        if (!x.equals("*")){
+            throw new EnigmaException("Invalid settings");
+        }
         String[] rotors = new String[M.numRotors()];
         for(int i = 0; i < M.numRotors(); i++){
             rotors[i] = scanString.next();
@@ -153,6 +162,9 @@ public final class Main {
         M.insertRotors(rotors);
 
         String notches = scanString.next();
+        if(notches.length() != M.numRotors()-1){
+            throw new EnigmaException("Wrong amount of notches for amount of rotors");
+        }
         M.setRotors(notches);
         //System.out.println(notches);
         if(scanString.hasNextLine()){
@@ -172,7 +184,20 @@ public final class Main {
      *  have fewer letters). */
     private void printMessageLine(String msg) {
         // FIXME
-        System.out.println("msg");
+        char[] message = msg.toCharArray();
+        String outputMessage = "";
+        int count = 0;
+        for(char m : message){
+            if(count == 5){
+                outputMessage += " " + m;
+                count = 0;
+            }
+            else{
+                outputMessage += m;
+                count+=1;
+            }
+        }
+        _output.println(outputMessage);
     }
 
     /** Alphabet used in this machine. */

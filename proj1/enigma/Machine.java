@@ -39,13 +39,19 @@ class Machine {
     void insertRotors(String[] rotors) {
         // FIXME
         _machine = new LinkedList<Rotor>();
+        int count = 0;
         for(String name : rotors)
         {
             for(Rotor k : _allRotors)
             {
                 if(k.name().equals(name))
                 {
+                    if(count == 0 && !k.toString().contains("Reflector"))
+                    {
+                        throw new EnigmaException("First rotor not a reflector");
+                    }
                     _machine.add(k);
+                    count+=1;
                 }
             }
         }
@@ -73,7 +79,9 @@ class Machine {
      *  index in the range 0..alphabet size - 1), after first advancing
      *  the machine. */
     int convert(int c) {
-        //System.out.println(_machine.size());
+        ////System.out.println(_machine.size());
+        ////System.out.println(_alphabet.toChar(c));
+
         boolean[] move = new boolean[_machine.size()]; //which rotors will be moved
         move[_machine.size()-1] = true; // move the fast rotor
         for(int i = _machine.size()-1; i > 1; i--){ //Check for notches
@@ -85,22 +93,40 @@ class Machine {
 
         }
 
+
         for(int i = 0; i < move.length; i++){//advance all the rotors
             if (move[i]){
                 _machine.get(i).advance();
             }
         }
+        String printString = "";
+        for(int i = 0; i < _machine.size(); i++){
+            printString += _alphabet.toChar(_machine.get(i).setting());
+        }
+        //System.out.print("Setting: " + printString + " | ");
         //plugboard conversion
+        //System.out.print("Plugboard from: " + _alphabet.toChar(c) + " to " + _alphabet.toChar(_plugboard.permute(c)) +" ");
         c = _plugboard.permute(c); //plugboard permutation in
+
         for(int i = _machine.size()-1; i >= 0; i--) //convert all forward
         {
             c = _machine.get(i).convertForward(c);
+            //System.out.print(_machine.get(i).toString() + " converts to " + _alphabet.toChar(c) + " ");
         }
+
 
         for(int i = 1; i < _machine.size(); i++){ //convert all backward
             c = _machine.get(i).convertBackward(c);
+            //System.out.print(_machine.get(i).toString() + " converts to " + _alphabet.toChar(c));
         }
+        //System.out.print("Plugboard from: " + _alphabet.toChar(c) + " to " +_alphabet.toChar(_plugboard.permute(c)) +" ");
         c = _plugboard.permute(c); // plugboard permutation out
+        for(boolean s : move){
+            ////System.out.print(s + " ");
+
+        }
+        ////System.out.println(_alphabet.toChar(c));
+
         return c;
         // FIXME
     }
