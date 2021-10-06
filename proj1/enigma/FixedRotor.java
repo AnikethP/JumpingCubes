@@ -2,20 +2,23 @@ package enigma;
 
 import static enigma.EnigmaException.*;
 
-/** Class that represents a rotor that has no ratchet and does not advance.
- *  @author Aniketh Prasad
+/**
+ * Class that represents a rotor that has no ratchet and does not advance.
+ *
+ * @author Aniketh Prasad
  */
 class FixedRotor extends Rotor {
 
-    /** A non-moving rotor named NAME whose permutation at the 0 setting
-     * is given by PERM. */
+    /**
+     * A non-moving rotor named NAME whose permutation at the 0 setting
+     * is given by PERM.
+     */
     FixedRotor(String name, Permutation perm) {
         super(name, perm);
     }
 
     @Override
-    int setting()
-    {
+    int setting() {
         return 0;
     }
 
@@ -23,5 +26,4 @@ class FixedRotor extends Rotor {
     public String toString() {
         return "FixedRotor " + name();
     }
-    // FIXME ?
 }

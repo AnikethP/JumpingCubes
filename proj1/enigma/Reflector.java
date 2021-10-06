@@ -2,19 +2,20 @@ package enigma;
 
 import static enigma.EnigmaException.*;
 
-/** Class that represents a reflector in the enigma.
- *  @author
+/**
+ * Class that represents a reflector in the enigma.
+ *
+ * @author Aniketh Prasad
  */
 class Reflector extends FixedRotor {
 
-    /** A non-moving rotor named NAME whose permutation at the 0 setting
-     * is PERM. */
+    /**
+     * A non-moving rotor named NAME whose permutation at the 0 setting
+     * is PERM.
+     */
     Reflector(String name, Permutation perm) {
         super(name, perm);
-        // FIXME
     }
-
-    // FIXME?
 
     @Override
     void set(int posn) {
@@ -22,6 +23,7 @@ class Reflector extends FixedRotor {
             throw error("reflector has only one position");
         }
     }
+
     @Override
     public String toString() {
         return "Reflector " + name();
@@ -29,16 +31,13 @@ class Reflector extends FixedRotor {
 
     @Override
     int convertForward(int p) {
-        //System.out.print(" " + alphabet().toChar(p) + " ");
-        //permutation().getCycles();
-        int convert = permutation().permute(p);  //Permute setting
-        //System.out.print(" " + alphabet().toChar(convert) + " ");
+        int convert = permutation().permute(p);
         return permutation().wrap(convert);
     }
 
     @Override
     int convertBackward(int e) {
-        int convert = permutation().invert(e);  //Permute setting
+        int convert = permutation().invert(e);
         return permutation().wrap(convert);
 
     }

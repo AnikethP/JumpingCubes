@@ -2,24 +2,31 @@ package enigma;
 
 import java.util.HashMap;
 
-/** Utility definitions for use in unit tests.
- *  @author P. N. Hilfinger
+/**
+ * Utility definitions for use in unit tests.
+ *
+ * @author P. N. Hilfinger
  */
 class TestUtils {
 
     protected static final Alphabet UPPER = new Alphabet();
     protected static final String UPPER_STRING =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    /** Return an identifying error message for failed assertions.
-     *  TESTID identifies the test, MSGFORMAT and ARGS provide
-     *  the details, as for String.format. */
+    /**
+     * Return an identifying error message for failed assertions.
+     * TESTID identifies the test, MSGFORMAT and ARGS provide
+     * the details, as for String.format.
+     */
     static String msg(String testId, String msgFormat, Object... args) {
         return testId + " (" + String.format(msgFormat, args) + ")";
     }
 
-    /** The naval rotors in the A (0) setting. */
+    /**
+     * The naval rotors in the A (0) setting.
+     */
     static final HashMap<String, String> NAVALA = new HashMap<>();
+
     static {
         NAVALA.put("I", "(AELTPHQXRU) (BKNW) (CMOY) (DFG) (IV) (JZ) (S)");
         NAVALA.put("II", "(FIXVYOMW) (CDKLHUP) (ESZ) (BJ) (GR) (NT) (A) (Q)");
@@ -32,15 +39,18 @@ class TestUtils {
         NAVALA.put("Beta", "(ALBEVFCYODJWUGNMQTZSKPR) (HIX)");
         NAVALA.put("Gamma", "(AFNIRLBSQWVXGUZDKMTPCOYJHE)");
         NAVALA.put("B",
-                  "(AE) (BN) (CK) (DQ) (FU) (GY) (HW) (IJ) (LO) "
-                  + "(MP) (RX) (SZ) (TV)");
+                "(AE) (BN) (CK) (DQ) (FU) (GY) (HW) (IJ) (LO) "
+                        + "(MP) (RX) (SZ) (TV)");
         NAVALA.put("C",
-                  "(AR) (BD) (CO) (EJ) (FN) (GT) (HK) (IV) (LM) "
-                  + "(PW) (QZ) (SX) (UY)");
+                "(AR) (BD) (CO) (EJ) (FN) (GT) (HK) (IV) (LM) "
+                        + "(PW) (QZ) (SX) (UY)");
     }
 
-    /** The mapping of the upper-case alphabet by NAVALA. */
+    /**
+     * The mapping of the upper-case alphabet by NAVALA.
+     */
     static final HashMap<String, String> NAVALA_MAP = new HashMap<>();
+
     static {
         NAVALA_MAP.put("I", "EKMFLGDQVZNTOWYHXUSPAIBRCJ");
         NAVALA_MAP.put("II", "AJDKSIRUXBLHWTMCQGZNPYFVOE");
@@ -54,8 +64,11 @@ class TestUtils {
         NAVALA_MAP.put("Gamma", "FSOKANUERHMBTIYCWLQPZXVGJD");
     }
 
-    /** The naval rotors in the B (1) setting. */
+    /**
+     * The naval rotors in the B (1) setting.
+     */
     static final HashMap<String, String> NAVALB = new HashMap<>();
+
     static {
         NAVALB.put("I", " (ZDKSOGPWQT) (AJMV) (BLNX) (CEF) (HU) (IY) (R) ");
         NAVALB.put("II", " (EHWUXNLV) (BCJKGTO) (DRY) (AI) (FQ) (MS) (Z) (P) ");
@@ -68,15 +81,18 @@ class TestUtils {
         NAVALB.put("Beta", " (ZKADUEBXNCIVTFMLPSYRJOQ) (GHW) ");
         NAVALB.put("Gamma", " (ZEMHQKARPVUWFTYCJLSOBNXIGD) ");
         NAVALB.put("B",
-                  " (ZD) (AM) (BJ) (CP) (ET) (FX) (GV) (HI) (KN)  "
-                  + " (LO) (QW) (RY) (SU) ");
+                " (ZD) (AM) (BJ) (CP) (ET) (FX) (GV) (HI) (KN)  "
+                        + " (LO) (QW) (RY) (SU) ");
         NAVALB.put("C",
-                  " (ZQ) (AC) (BN) (DI) (EM) (FS) (GJ) (HU) (KL)  "
-                  + " (OV) (PY) (RW) (TX) ");
+                " (ZQ) (AC) (BN) (DI) (EM) (FS) (GJ) (HU) (KL)  "
+                        + " (OV) (PY) (RW) (TX) ");
     }
 
-    /** The mapping of the upper-case alphabet by NAVALB. */
+    /**
+     * The mapping of the upper-case alphabet by NAVALB.
+     */
     static final HashMap<String, String> NAVALB_MAP = new HashMap<>();
+
     static {
         NAVALB_MAP.put("I", "JLEKFCPUYMSNVXGWTROZHAQBID");
         NAVALB_MAP.put("II", "ICJRHQTWAKGVSLBPFYMOXEUNDZ");
@@ -90,8 +106,11 @@ class TestUtils {
         NAVALB_MAP.put("Gamma", "RNJZMTDQGLASHXBVKPOYWUFICE");
     }
 
-    /** The naval rotors in the Z (25) setting. */
+    /**
+     * The naval rotors in the Z (25) setting.
+     */
     static final HashMap<String, String> NAVALZ = new HashMap<>();
+
     static {
         NAVALZ.put("I", " (BFMUQIRYSV) (CLOX) (DNPZ) (EGH) (JW) (KA) (T) ");
         NAVALZ.put("II", " (GJYWZPNX) (DELMIVQ) (FTA) (CK) (HS) (OU) (B) (R) ");
@@ -104,15 +123,18 @@ class TestUtils {
         NAVALZ.put("Beta", " (BMCFWGDZPEKXVHONRUATLQS) (IJY) ");
         NAVALZ.put("Gamma", " (BGOJSMCTRXWYHVAELNUQDPZKIF) ");
         NAVALZ.put("B",
-                  " (BF) (CO) (DL) (ER) (GV) (HZ) (IX) (JK) (MP)  "
-                  + " (NQ) (SY) (TA) (UW) ");
+                " (BF) (CO) (DL) (ER) (GV) (HZ) (IX) (JK) (MP)  "
+                        + " (NQ) (SY) (TA) (UW) ");
         NAVALZ.put("C",
-                  " (BS) (CE) (DP) (FK) (GO) (HU) (IL) (JW) (MN)  "
-                  + " (QX) (RA) (TY) (VZ) ");
+                " (BS) (CE) (DP) (FK) (GO) (HU) (IL) (JW) (MN)  "
+                        + " (QX) (RA) (TY) (VZ) ");
     }
 
-    /** The mapping of the upper-case alphabet by NAVALZ. */
+    /**
+     * The mapping of the upper-case alphabet by NAVALZ.
+     */
     static final HashMap<String, String> NAVALZ_MAP = new HashMap<>();
+
     static {
         NAVALZ_MAP.put("I", "KFLNGMHERWAOUPXZIYVTQBJCSD");
         NAVALZ_MAP.put("II", "FBKELTJSVYCMIXUNDRHAOQZGWP");
