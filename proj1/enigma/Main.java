@@ -130,11 +130,19 @@ public final class Main {
 
             LinkedList<Rotor> allRotors = new LinkedList<>();
             scanFile.nextLine();
+            String name;
+            String info;
+            String type;
             while (scanFile.hasNextLine()) {
-                String name = scanFile.next();
-                String info = scanFile.next();
-                String type = info.substring(0, 1);
 
+                if (scanFile.hasNext()){
+                    name = scanFile.next();
+                    info = scanFile.next();
+                    type = info.substring(0, 1);
+                }
+                else{
+                    return new Machine(_alphabet, slots, pawls, allRotors);
+                }
                 String perm = "";
                 perm += scanFile.nextLine();
                 while (scanFile.hasNext("[(].*")) {
