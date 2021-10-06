@@ -135,12 +135,11 @@ public final class Main {
             String type;
             while (scanFile.hasNextLine()) {
 
-                if (scanFile.hasNext()){
+                if (scanFile.hasNext()) {
                     name = scanFile.next();
                     info = scanFile.next();
                     type = info.substring(0, 1);
-                }
-                else{
+                } else {
                     return new Machine(_alphabet, slots, pawls, allRotors);
                 }
                 String perm = "";
