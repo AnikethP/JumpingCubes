@@ -11,7 +11,7 @@ public class BitExercise {
     * should return 4, which in binary is 0b100.
     */
     public static int lastBit(int x) {
-        return 0;
+        return x = x&-x;
             //TODO: Your code here
     }
 
