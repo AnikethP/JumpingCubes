@@ -1,6 +1,6 @@
 /** Represents an array of integers each in the range -8..7.
  *  Such integers may be represented in 4 bits (called nybbles).
- *  @author
+ *  @author Aniketh Prasad
  */
 public class Nybbles {
 
@@ -25,8 +25,10 @@ public class Nybbles {
         if (k < 0 || k >= _n) {
             throw new IndexOutOfBoundsException();
         } else {
-            return 0; // REPLACE WITH SOLUTION
+            int newInt = _data[k/8] << (28 - 4*(k%8)); // left shift all the way to the end of int.
+            return newInt >> 28; //right shift all the way back to the front;
         }
+
     }
 
     /** Set the Kth integer in THIS array to VAL.  Assumes
@@ -37,7 +39,12 @@ public class Nybbles {
         } else if (val < (-MAX_VALUE - 1) || val > MAX_VALUE) {
             throw new IllegalArgumentException();
         } else {
-            _data[0] = 0; // REPLACE WITH SOLUTION
+            int x = (_data[k/8]&~(15<<4*(k%8))); // Integer 15 is 1111 in binary. 000011111111,
+            // Using this for the & mask, we get the binary as normal except for the area needed to be set replaced with zeroes.
+
+            _data[k/8] = x|((val & 15)<<4*(k%8));
+            //Now then use the | operator to set the empty 0000 with the binary of int val translated to its correct position.
+
         }
     }
 

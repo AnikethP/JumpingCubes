@@ -11,7 +11,8 @@ public class BitExercise {
     * should return 4, which in binary is 0b100.
     */
     public static int lastBit(int x) {
-        return 0; //TODO: Your code here
+        return 0;
+            //TODO: Your code here
     }
 
     /** Fill in the function below so that it returns 
@@ -19,7 +20,11 @@ public class BitExercise {
     * For example: 2, 32, and 8192 are powers of two.
     */
     public static boolean powerOfTwo(int x) {
-        return false; //TODO: Your code here
+        //All binary numbers are represented as 1 followed by x zeroes
+        //ex. 10000, 1000, 100, 10, 1
+        //If we subtract by 1, it becomes zero followed by ones only if it is a power of two.
+        //Then use the and operator to make sure that it is all zeroes.
+        return (x & (x-1)) == 0; //TODO: Your code here
     }
     
     /** Fill in the function below so that it returns 
@@ -29,6 +34,9 @@ public class BitExercise {
     * absolute(-1) should return 1.
     */
     public static int absolute(int x) {
-        return 0; //TODO: your code here
+        //
+        int y = x>>31;
+        return (y^x) - y;
+        //TODO: your code here
     } 
 }
