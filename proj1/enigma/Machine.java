@@ -106,6 +106,16 @@ class Machine {
     }
 
     /**
+     * Set the ringstelleung setting.
+     * @param setting String representing the ring settings for all rotors.
+     */
+    void setRing(String setting) {
+        for (int i = 1; i < _machine.size(); i++) {
+            _machine.get(i).setRing(setting.charAt(i - 1));
+        }
+    }
+
+    /**
      * Set the plugboard to PLUGBOARD.
      */
     void setPlugboard(Permutation plugboard) {
@@ -195,4 +205,8 @@ class Machine {
      * Plugboard permutation.
      */
     private Permutation _plugboard;
+
+    /**
+     * Ringstellung settings.
+     */
 }

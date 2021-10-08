@@ -191,8 +191,6 @@ public final class Main {
      */
     private void setUp(Machine M, String settings) throws EnigmaException {
         try {
-
-
             String line = "";
             Scanner scanString = new Scanner(settings);
             String x = scanString.next();
@@ -218,7 +216,20 @@ public final class Main {
             M.setRotors(notches);
 
             if (scanString.hasNextLine()) {
+
                 String rest = scanString.nextLine();
+
+                Scanner stringScan = new Scanner(rest);
+                if (stringScan.hasNext("[^(]+")) {
+                    M.setRing(stringScan.next());
+                    if (stringScan.hasNextLine()) {
+                        rest = stringScan.nextLine();
+                    } else {
+                        rest = "";
+                    }
+
+                }
+
                 line += " " + rest;
                 M.setPlugboard(new Permutation(rest, _alphabet));
             } else {
@@ -264,15 +275,15 @@ public final class Main {
     /**
      * Source of input messages.
      */
-    private Scanner _input;
+    private final Scanner _input;
 
     /**
      * Source of machine configuration.
      */
-    private Scanner _config;
+    private final Scanner _config;
 
     /**
      * File for encoded/decoded messages.
      */
-    private PrintStream _output;
+    private final PrintStream _output;
 }

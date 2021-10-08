@@ -36,6 +36,10 @@ class Reflector extends FixedRotor {
     }
 
     @Override
+    int setting() {
+        return 0;
+    }
+    @Override
     int convertBackward(int e) {
         int convert = permutation().invert(e);
         return permutation().wrap(convert);

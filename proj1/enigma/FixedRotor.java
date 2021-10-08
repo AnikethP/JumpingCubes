@@ -18,11 +18,6 @@ class FixedRotor extends Rotor {
     }
 
     @Override
-    int setting() {
-        return 0;
-    }
-
-    @Override
     public String toString() {
         return "FixedRotor " + name();
     }
