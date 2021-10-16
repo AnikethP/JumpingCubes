@@ -17,16 +17,62 @@ public class BSTStringSet implements StringSet, Iterable<String> {
     @Override
     public void put(String s) {
         // FIXME: PART A
+        Node l = _root;
+        _root = new Node(s);
+        _root.left = l;
+
     }
 
     @Override
     public boolean contains(String s) {
-        return false; // FIXME: PART A
+        BSTIterator iter = new BSTIterator(_root);
+        while(iter.hasNext()){
+            String x = iter.next();
+            if (s == x){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public List<String> asList() {
-        return null; // FIXME: PART A. MUST BE IN SORTED ORDER, ASCENDING
+        BSTIterator iter = new BSTIterator(_root);
+        ArrayList<String> stringList = new ArrayList<String>();
+        while(iter.hasNext()){
+            String x = iter.next();
+
+            stringList.add(x);
+
+
+        }
+        //Sort stringList
+
+        return sortArrayList(stringList);
+
+    }
+
+    private List<String> sortArrayList(List<String> lst){
+        if(lst.size() == 1){
+            return lst;
+        }
+
+        return insertInto(lst.get(0), sortArrayList(lst.subList(1,lst.size())));
+    }
+
+    private List<String> insertInto(String k, List<String> lst){
+        int j;
+        for(j = 0; j < lst.size(); j++){
+            if(k.compareTo(lst.get(j)) <= 0){
+
+                lst.add(j, k);
+                break;
+            }
+            else if(j == lst.size()-1){
+                lst.add(j+1, k);
+            }
+        }
+        return lst;
     }
 
 
