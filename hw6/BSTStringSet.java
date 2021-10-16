@@ -82,7 +82,7 @@ public class BSTStringSet implements StringSet, Iterable<String> {
         if(lst.size() <= 1){
             return lst;
         }
-        //System.out.println(lst);
+        System.out.println(lst);
         return insertInto(lst.get(0), sortArrayList(lst.subList(1,lst.size())));
     }
 
