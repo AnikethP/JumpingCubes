@@ -46,11 +46,16 @@ public class BSTStringSet implements StringSet, Iterable<String> {
 
     @Override
     public boolean contains(String s) {
-        BSTIterator iter = new BSTIterator(_root);
-        while(iter.hasNext()){
-            String x = iter.next();
-            if (s == x){
+        Node curr = _root;
+        while(s != null){
+            if(curr.s.equals(s)){
                 return true;
+            }
+            else if(s.compareTo(curr.s) < 0){
+                curr = curr.left;
+            }
+            else{
+                curr = curr.right;
             }
         }
         return false;
