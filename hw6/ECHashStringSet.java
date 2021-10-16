@@ -7,7 +7,7 @@ import java.util.ArrayList;
 class ECHashStringSet implements StringSet {
     private LinkedList<String>[] store;
 
-    private int size = 25;
+    private int size = 5;
     int count = 0;
     public ECHashStringSet() {
         store = (LinkedList<String>[]) new LinkedList[size];
@@ -17,25 +17,36 @@ class ECHashStringSet implements StringSet {
     }
     @Override
     public void put(String s) {
-        if(((double) count)/ ((double) size) > 0.75){
-            size*=2;
-            LinkedList<String>[] oldStore = store;
-            store = (LinkedList<String>[]) new LinkedList[size];
-            for(int i = 0; i<size; i++){
-                store[i] = new LinkedList<String>();
-            }
-            for(LinkedList k : oldStore){
-                for(int i = 0; i < k.size(); i++){
-                    put((String) k.get(i));
-                }
-            }
+        if(((double) count)/ ((double) size) > 4){
+            resize();
+
         }
         int bin = getBin(s);
         store[bin].add(s);
         count+=1;
     }
+    public void resize(){
+        LinkedList<String>[] oldStore = store;
+        store = new LinkedList[2*oldStore.length];
+        size = 2*size;
+        for(int i = 0; i<size; i++){
+            store[i] = new LinkedList<String>();
+        }
+        count = 0;
+        for(int i = 0; i < oldStore.length; i++){
+            if (oldStore[i] != null){
+                for(String s: oldStore[i]){
+                    put(s);
+                }
+            }
+        }
+    }
     private int getBin(String s){
-        return (s.hashCode() & 0x7fffffff) % size;
+        int index = s.hashCode() % size;
+        if (index < 0) {
+            index = index & 0x7fffffff % size;
+        }
+        return index;
     }
 
     @Override
