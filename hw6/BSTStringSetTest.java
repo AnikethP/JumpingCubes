@@ -25,6 +25,7 @@ public class BSTStringSetTest  {
 
         String[] actual = {"Amogus", "Bhavye", "Carlo", "Chaplain", "Cooking by the book", "Rezy"};
         assertArrayEquals(actual, l);
+        assertTrue(sTree.contains("Rezy"));
         // FIXME: Delete this function and add your own tests
     }
 }

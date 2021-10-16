@@ -47,7 +47,7 @@ public class BSTStringSet implements StringSet, Iterable<String> {
     @Override
     public boolean contains(String s) {
         Node curr = _root;
-        while(s != null){
+        while(curr != null){
             if(curr.s.equals(s)){
                 return true;
             }
