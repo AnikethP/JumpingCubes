@@ -16,11 +16,32 @@ public class BSTStringSet implements StringSet, Iterable<String> {
 
     @Override
     public void put(String s) {
+        if(_root == null){
+            _root = new Node(s);
+        }
         // FIXME: PART A
         Node l = _root;
-        _root = new Node(s);
-        _root.left = l;
-
+        while(l != null){
+            if(s.compareTo(l.s) < 0){
+                if(l.left == null){
+                    l.left = new Node(s);
+                }
+                else{
+                    l = l.left;
+                }
+            }
+            else if(s.compareTo(l.s) == 0){
+                return;
+            }
+            else{
+                if(l.right == null){
+                    l.right = new Node(s);
+                }
+                else{
+                    l = l.right;
+                }
+            }
+        }
     }
 
     @Override
@@ -53,7 +74,7 @@ public class BSTStringSet implements StringSet, Iterable<String> {
     }
 
     private List<String> sortArrayList(List<String> lst){
-        if(lst.size() == 1){
+        if(lst.size() <= 1){
             return lst;
         }
 
