@@ -79,11 +79,11 @@ public class BSTStringSet implements StringSet, Iterable<String> {
     }
 
     private List<String> sortArrayList(List<String> lst){
-        if(lst.size() <= 1){
-            return lst;
+        ArrayList<String> returnList = new ArrayList<String>();
+        for (String x : this) {
+            returnList.add(x);
         }
-        System.out.println(lst);
-        return insertInto(lst.get(0), sortArrayList(lst.subList(1,lst.size())));
+        return returnList;
     }
 
     private List<String> insertInto(String k, List<String> lst){
