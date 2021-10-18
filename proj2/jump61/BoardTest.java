@@ -89,4 +89,9 @@ public class BoardTest {
         assertEquals("extra squares filled", contents.length / 4, c);
     }
 
+    @Test
+    public void testWin(){
+        Board c = new Board(2);
+        assertTrue(c.getWinner()!= null);
+    }
 }

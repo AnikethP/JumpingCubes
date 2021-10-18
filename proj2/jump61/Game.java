@@ -108,6 +108,7 @@ class Game {
     /** Add a spot to R C, if legal to do so. */
     void makeMove(int r, int c) {
         assert _board.isLegal(_board.whoseMove(), r, c);
+        _board.num_moves+=1;
         _board.addSpot(_board.whoseMove(), r, c);
         if (_verbose) {
             printBoard();
@@ -117,6 +118,7 @@ class Game {
     /** Add a spot to square #N, if legal to do so. */
     void makeMove(int n) {
         assert _board.isLegal(_board.whoseMove(), n);
+        _board.num_moves+=1;
         _board.addSpot(_board.whoseMove(), n);
         if (_verbose) {
             printBoard();
