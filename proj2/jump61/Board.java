@@ -251,6 +251,12 @@ class Board {
     }
 
     /**
+     * Returns true iff it would currently be legal for PLAYER to add a spot
+     */
+    boolean isLegal(Side player){
+        return true;
+    }
+    /**
      * Returns the winner of the current position, if the game is over,
      * and otherwise null.
      */
