@@ -92,6 +92,6 @@ public class BoardTest {
     @Test
     public void testWin(){
         Board c = new Board(2);
-        assertTrue(c.getWinner()!= null);
+        assertFalse(c.getWinner()!= null);
     }
 }

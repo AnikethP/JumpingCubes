@@ -1,9 +1,3 @@
-// This file contains a SUGGESTION for the structure of your program.  You
-// may change any of it, or add additional files to this directory (package),
-// as long as you conform to the project specification.
-
-// Comments that start with "//" are intended to be removed from your
-// solutions.
 package jump61;
 
 import static jump61.Side.*;
@@ -11,7 +5,7 @@ import static jump61.GameException.error;
 import static jump61.Utils.*;
 
 /** Main logic for playing (a) game(s) of Jump61.
- *  @author
+ *  @author Aniketh Prasad
  */
 class Game {
 
@@ -107,8 +101,8 @@ class Game {
 
     /** Add a spot to R C, if legal to do so. */
     void makeMove(int r, int c) {
+        System.out.println(_board.whoseMove() + " " + r + " " + c);
         assert _board.isLegal(_board.whoseMove(), r, c);
-        _board.num_moves+=1;
         _board.addSpot(_board.whoseMove(), r, c);
         if (_verbose) {
             printBoard();
@@ -118,7 +112,6 @@ class Game {
     /** Add a spot to square #N, if legal to do so. */
     void makeMove(int n) {
         assert _board.isLegal(_board.whoseMove(), n);
-        _board.num_moves+=1;
         _board.addSpot(_board.whoseMove(), n);
         if (_verbose) {
             printBoard();
