@@ -34,6 +34,7 @@ class AI extends Player {
 
         assert getSide() == board.whoseMove();
         int choice = searchForMove();
+
         getGame().reportMove(board.row(choice), board.col(choice));
         return String.format("%d %d", board.row(choice), board.col(choice));
     }
@@ -45,12 +46,20 @@ class AI extends Player {
         int value;
         assert getSide() == work.whoseMove();
         _foundMove = -1;
-        if (getSide() == RED) {
-            value = 0; // FIXME
-        } else {
-            value = 0; // FIXME
+        ArrayList<Integer> moves = new ArrayList<>();
+        ArrayList<Integer> allMoves = new ArrayList<>();
+        for(int i = 1; i <= work.size()*work.size(); i++){
+            if(work.isLegal(work.whoseMove(), i)){
+                allMoves.add(i);
+            }
         }
-        return _foundMove;
+        return allMoves.get(0);
+//        if (getSide() == RED) {
+//            minMax(work, 4, true, 1, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+//        } else {
+//            minMax(work, 4, true, -1, Double.NEGATIVE_INFINITY,Double.POSITIVE_INFINITY);
+//        }
+
     }
 
 
@@ -62,15 +71,82 @@ class AI extends Player {
      *  of the board value and does not set _foundMove. If the game is over
      *  on BOARD, does not set _foundMove. */
     private int minMax(Board board, int depth, boolean saveMove,
-                       int sense, int alpha, int beta) {
-        return 0; // FIXME
+                       int sense, double alpha, double beta) {
+        int currBest = -1;
+        if(depth == 0 || board.getWinner() != null){
+            return staticEval(board, board.size()*board.size()+1);
+        }
+        ArrayList<Integer> allMoves = new ArrayList<>();
+        for(int i = 1; i <= board.size()*board.size(); i++){
+            if(board.isLegal(board.whoseMove(), i)){
+                allMoves.add(i);
+            }
+        }
+        if(sense == 1){
+            double maximum = Double.NEGATIVE_INFINITY;
+            for(int m : allMoves){
+                Board g = new Board(board);
+                g.addSpot(g.whoseMove(), m);
+                int eval = minMax(g, depth-1, false, -1 * sense, alpha, beta);
+                maximum = Math.max(maximum, eval);
+                alpha = Math.max(alpha, eval);
+                if(beta <= alpha){
+                    break;
+                }
+                if(maximum == eval) { //If the new evaluation is the best
+                    currBest = m; // save the move
+                }
+            }
+            if(!saveMove){
+                return (int) maximum;
+            }
+            else{
+                _foundMove = currBest;
+                return _foundMove;
+            }
+
+        }
+        else{
+            double minimum = Double.POSITIVE_INFINITY;
+            for(int m : allMoves){
+                Board g = new Board(board);
+                g.addSpot(g.whoseMove(), m);
+                int eval = minMax(g, depth-1, false, -1 * sense, alpha, beta);
+                minimum = Math.min(minimum, eval);
+                beta = Math.min(beta, eval);
+                if (beta <= alpha){
+                    break;
+                }
+                if(minimum == eval) { //If the new evaluation is the best
+                    currBest = m; // save the move
+                }
+            }
+            if(!saveMove) {
+                return (int) minimum;
+            }
+            else{
+                _foundMove = currBest;
+                return _foundMove;
+            }
+        }
     }
+
+
 
     /** Return a heuristic estimate of the value of board position B.
      *  Use WINNINGVALUE to indicate a win for Red and -WINNINGVALUE to
      *  indicate a win for Blue. */
     private int staticEval(Board b, int winningValue) {
-        return 0; // FIXME
+        int blueCount = b.numOfSide(BLUE), redCount = b.numOfSide(RED);
+        if(b.getWinner() == BLUE){
+            return -winningValue;
+        }
+        if(b.getWinner() == RED){
+            return winningValue;
+        }
+        return blueCount-redCount;
+
+         // FIXME
     }
 
     /** A random-number generator used for move selection. */

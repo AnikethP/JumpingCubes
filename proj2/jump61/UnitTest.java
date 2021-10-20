@@ -1,5 +1,6 @@
 package jump61;
 
+import org.junit.Test;
 import ucb.junit.textui;
 
 /** The suite of all JUnit tests for the Jump61 program.
@@ -13,6 +14,10 @@ public class UnitTest {
         System.exit(textui.runClasses(jump61.BoardTest.class));
     }
 
+    @Test
+    void testAI(){
+
+    }
 }
 
 
