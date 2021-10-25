@@ -22,6 +22,7 @@ class AI extends Player {
      */
     private int _foundMove;
 
+
     /**
      * A new player of GAME initially COLOR that chooses moves automatically.
      * SEED provides a random-number seed used for choosing moves.
@@ -54,10 +55,10 @@ class AI extends Player {
         _foundMove = -1;
 
         if (getSide() == RED) {
-            minMax(work, 4, true, 1,
+            minMax(work, 1, true, 1,
                     Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
         } else {
-            minMax(work, 4, true, -1,
+            minMax(work, 1, true, -1,
                     Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
         }
         return _foundMove;

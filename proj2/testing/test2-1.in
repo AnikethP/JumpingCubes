@@ -2,8 +2,8 @@
 # Play against the staff solution, making sure that somebody
 # wins without crashing.
 size 2
-1 2
-1 2
-1 2
+2 1
+2 1
+2 1
 dump
 quit
