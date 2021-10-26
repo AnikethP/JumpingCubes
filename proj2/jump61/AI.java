@@ -55,7 +55,7 @@ class AI extends Player {
         _foundMove = -1;
 
         if (getSide() == RED) {
-            minMax(work, 1, true, 1,
+            minMax(work, 1, true, -1,
                     Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
         } else {
             minMax(work, 1, true, -1,

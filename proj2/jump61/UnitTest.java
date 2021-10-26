@@ -4,7 +4,7 @@ import org.junit.Test;
 import ucb.junit.textui;
 
 /** The suite of all JUnit tests for the Jump61 program.
- *  @author
+ *  @author Aniketh Prasad
  */
 public class UnitTest {
 
@@ -15,7 +15,7 @@ public class UnitTest {
     }
 
     @Test
-    void testAI(){
+    void testAI() {
 
     }
 }

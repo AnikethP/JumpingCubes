@@ -251,9 +251,9 @@ class Board {
     }
 
     /**
-     * Returns true iff it would currently be legal for PLAYER to add a spot
+     * Returns true iff it would currently be legal for PLAYER to add a spot.
      */
-    boolean isLegal(Side player){
+    boolean isLegal(Side player) {
         return true;
     }
     /**
@@ -440,50 +440,7 @@ class Board {
                     }
                 }
             } else {
-                if (row(S) > 1) {
-                    if (getWinner() != null) {
-                        return;
-                    }
-                    simpleAdd(BLUE, sqNum(row(S), col(S)), -1);
-                    simpleAdd(BLUE, sqNum(row(S) - 1, col(S)), 1);
-                    _workQueue.add(sqNum(row(S) - 1, col(S)));
-                    if (getWinner() != null) {
-                        return;
-                    }
-                }
-                if (col(S) > 1) {
-                    if (getWinner() != null) {
-                        return;
-                    }
-                    simpleAdd(BLUE, sqNum(row(S), col(S)), -1);
-                    simpleAdd(BLUE, sqNum(row(S), col(S) - 1), 1);
-                    _workQueue.add(sqNum(row(S), col(S) - 1));
-                    if (getWinner() != null) {
-                        return;
-                    }
-                }
-                if (row(S) < size()) {
-                    if (getWinner() != null) {
-                        return;
-                    }
-                    simpleAdd(BLUE, sqNum(row(S), col(S)), -1);
-                    simpleAdd(BLUE, sqNum(row(S) + 1, col(S)), 1);
-                    _workQueue.add(sqNum(row(S) + 1, col(S)));
-                    if (getWinner() != null) {
-                        return;
-                    }
-                }
-                if (col(S) < size()) {
-                    if (getWinner() != null) {
-                        return;
-                    }
-                    simpleAdd(BLUE, sqNum(row(S), col(S)), -1);
-                    simpleAdd(BLUE, sqNum(row(S), col(S) + 1), 1);
-                    _workQueue.add(sqNum(row(S), col(S) + 1));
-                    if (getWinner() != null) {
-                        return;
-                    }
-                }
+                doRepeat(S);
             }
             for (int i = 0; i < _workQueue.size(); i++) {
                 jump(_workQueue.pop());
@@ -491,6 +448,57 @@ class Board {
         }
     }
 
+    /**
+     * Does the jumping for blue.
+     * @param S square which must be jumped
+     */
+
+    public void doRepeat(int S) {
+        if (row(S) > 1) {
+            if (getWinner() != null) {
+                return;
+            }
+            simpleAdd(BLUE, sqNum(row(S), col(S)), -1);
+            simpleAdd(BLUE, sqNum(row(S) - 1, col(S)), 1);
+            _workQueue.add(sqNum(row(S) - 1, col(S)));
+            if (getWinner() != null) {
+                return;
+            }
+        }
+        if (col(S) > 1) {
+            if (getWinner() != null) {
+                return;
+            }
+            simpleAdd(BLUE, sqNum(row(S), col(S)), -1);
+            simpleAdd(BLUE, sqNum(row(S), col(S) - 1), 1);
+            _workQueue.add(sqNum(row(S), col(S) - 1));
+            if (getWinner() != null) {
+                return;
+            }
+        }
+        if (row(S) < size()) {
+            if (getWinner() != null) {
+                return;
+            }
+            simpleAdd(BLUE, sqNum(row(S), col(S)), -1);
+            simpleAdd(BLUE, sqNum(row(S) + 1, col(S)), 1);
+            _workQueue.add(sqNum(row(S) + 1, col(S)));
+            if (getWinner() != null) {
+                return;
+            }
+        }
+        if (col(S) < size()) {
+            if (getWinner() != null) {
+                return;
+            }
+            simpleAdd(BLUE, sqNum(row(S), col(S)), -1);
+            simpleAdd(BLUE, sqNum(row(S), col(S) + 1), 1);
+            _workQueue.add(sqNum(row(S), col(S) + 1));
+            if (getWinner() != null) {
+                return;
+            }
+        }
+    }
     /**
      * Checks if a square is overfull.
      * @param S integer representing square
