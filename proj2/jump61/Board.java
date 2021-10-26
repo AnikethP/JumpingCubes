@@ -303,10 +303,9 @@ class Board {
      */
     void addSpot(Side player, int n) {
         internalSet(n, get(n).getSpots() + 1, player);
-        if (overfull(n) && !_visited.contains(n)) {
+        if (overfull(n)) {
             jump(n);
         }
-        _visited.clear();
         markUndo();
     }
 
