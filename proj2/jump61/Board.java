@@ -254,7 +254,7 @@ class Board {
      * Returns true iff it would currently be legal for PLAYER to add a spot.
      */
     boolean isLegal(Side player) {
-        return true;
+        return player == whoseMove();
     }
     /**
      * Returns the winner of the current position, if the game is over,
@@ -391,7 +391,9 @@ class Board {
      * square that might be over-full.
      */
     private void jump(int S) {
+        System.out.println("OOGA BOOGA");
         if (overfull(S) && getWinner() == null) {
+
             _visited.add(S);
             if (get(S).getSide() == RED) {
                 if (row(S) > 1) {
