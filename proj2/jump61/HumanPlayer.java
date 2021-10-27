@@ -31,7 +31,6 @@ class HumanPlayer extends Player {
                                               toInt(m.group(2)))) {
                 return cmnd;
             }
-            System.out.println("bruh?");
             game.reportError("invalid move: %s", cmnd);
         }
     }

@@ -302,12 +302,13 @@ class Board {
      * Add a spot from PLAYER at square #N.  Assumes isLegal(PLAYER, N).
      */
     void addSpot(Side player, int n) {
+        //System.out.println(this);
         internalSet(n, get(n).getSpots() + 1, player);
         if (overfull(n)) {
             jump(n);
         }
         markUndo();
-        System.out.println(this);
+
     }
 
     /**
