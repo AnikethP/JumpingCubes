@@ -307,6 +307,7 @@ class Board {
             jump(n);
         }
         markUndo();
+        System.out.println(this);
     }
 
     /**
@@ -391,7 +392,6 @@ class Board {
      * square that might be over-full.
      */
     private void jump(int S) {
-        System.out.println("OOGA BOOGA");
         if (overfull(S) && getWinner() == null) {
 
             _visited.add(S);
