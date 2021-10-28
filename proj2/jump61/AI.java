@@ -1,15 +1,27 @@
 package jump61;
 
-
 import java.util.ArrayList;
 import java.util.Random;
 
-import static jump61.Side.*;
+import static jump61.Side.BLUE;
+import static jump61.Side.RED;
 
-/** An automated Player.
- *  @author P. N. Hilfinger
+/**
+ * An automated Player.
+ *
+ * @author P. N. Hilfinger
  */
 class AI extends Player {
+
+    /**
+     * A random-number generator used for move selection.
+     */
+    private final Random _random;
+    /**
+     * Used to convey moves discovered by minMax.
+     */
+    private int _foundMove;
+
 
     /**
      * A new player of GAME initially COLOR that chooses moves automatically.
@@ -22,6 +34,7 @@ class AI extends Player {
 
     @Override
     String getMove() {
+
         Board board = getGame().getBoard();
 
         assert getSide() == board.whoseMove();
@@ -36,20 +49,19 @@ class AI extends Player {
      */
     private int searchForMove() {
         Board work = new Board(getBoard());
-
         int value;
         assert getSide() == work.whoseMove();
         _foundMove = -1;
+
         if (getSide() == RED) {
-            value = minMax(work, 1, true,
-                    1, Integer.MIN_VALUE, Integer.MAX_VALUE);
+            minMax(work, 2, true, -1,
+                    Integer.MIN_VALUE, Integer.MAX_VALUE);
         } else {
-            value = minMax(work, 1, true,
-                    -1, Integer.MIN_VALUE, Integer.MAX_VALUE);
+            minMax(work, 1, true, -1,
+                    Integer.MIN_VALUE, Integer.MAX_VALUE);
         }
         return _foundMove;
     }
-
 
     /**
      * Find a move from position BOARD and return its value, recording
@@ -62,72 +74,60 @@ class AI extends Player {
      */
     private int minMax(Board board, int depth, boolean saveMove,
                        int sense, int alpha, int beta) {
+        int currBest = -1;
         if (depth == 0 || board.getWinner() != null) {
-            return staticEval(board, Integer.MAX_VALUE);
+            return staticEval(board, board.size() * board.size() + 1);
         }
-        ArrayList<ArrayList> validMoves = board.getValidMoves(getSide());
+        ArrayList<Integer> allMoves = new ArrayList<>();
+        for (int i = 0; i < board.size() * board.size(); i++) {
+            if (board.isLegal(board.whoseMove(), i)) {
+                allMoves.add(i);
+            }
+        }
         if (sense == 1) {
-            int maxeval = Integer.MIN_VALUE;
-            for (int i = 0; i < validMoves.size(); i++) {
-                int eval = minMax((Board) validMoves.get(i).get(1),
-                        depth - 1, false, -1, alpha, beta);
-                maxeval = max(eval, maxeval);
-                if (eval == max(eval, maxeval) && saveMove) {
-                    _foundMove = (int) validMoves.get(i).get(0);
-                }
-                alpha = max(alpha, eval);
+            int maximum = Integer.MIN_VALUE;
+            for (int m : allMoves) {
+                Board g = new Board(board);
+                g.addSpot(g.whoseMove(), m);
+                int eval = minMax(g, depth - 1, false, -1 * sense, alpha, beta);
+                maximum = Math.max(maximum, eval);
+                alpha = Math.max(alpha, eval);
                 if (beta <= alpha) {
                     break;
                 }
-            }
-            return maxeval;
-        }
-
-        if (sense == -1) {
-            int mineval = Integer.MAX_VALUE;
-            for (int i = 0; i < validMoves.size(); i++) {
-                int eval = minMax((Board) validMoves.get(i).get(1),
-                        depth - 1, false, 1, alpha, beta);
-                mineval = min(eval, mineval);
-                if (eval == min(eval, mineval) && saveMove) {
-                    _foundMove = (int) validMoves.get(i).get(0);
+                if (maximum == eval) {
+                    currBest = m;
                 }
-                beta = min(beta, eval);
+            }
+            if (!saveMove) {
+                return (int) maximum;
+            } else {
+                _foundMove = currBest;
+                return _foundMove;
+            }
+
+        } else {
+            int minimum = Integer.MAX_VALUE;
+            for (int m : allMoves) {
+                Board g = new Board(board);
+                g.addSpot(g.whoseMove(), m);
+                int eval = minMax(g, depth - 1, false, -1 * sense, alpha, beta);
+                minimum = Math.min(minimum, eval);
+                beta = Math.min(beta, eval);
                 if (beta <= alpha) {
                     break;
                 }
+                if (minimum == eval) {
+                    currBest = m;
+                }
             }
-            return mineval;
+            if (!saveMove) {
+                return (int) minimum;
+            } else {
+                _foundMove = currBest;
+                return _foundMove;
+            }
         }
-        return 0;
-    }
-
-    /**
-     * maximum of two inputs.
-     *
-     * @param a and
-     * @param b are ints to be compared
-     * @return maxmimum value
-     */
-    private int max(int a, int b) {
-        if (a >= b) {
-            return a;
-        }
-        return b;
-    }
-
-    /**
-     * minimum of two inputs.
-     *
-     * @param a and
-     * @param b are ints to be compared
-     * @return minimum value
-     */
-    private int min(int a, int b) {
-        if (a <= b) {
-            return a;
-        }
-        return b;
     }
 
     /**
@@ -136,27 +136,13 @@ class AI extends Player {
      * indicate a win for Blue.
      */
     private int staticEval(Board b, int winningValue) {
+        int blueCount = b.numOfSide(BLUE), redCount = b.numOfSide(RED);
         if (b.getWinner() == BLUE) {
             return -winningValue;
-        } else if (b.getWinner() == RED) {
+        }
+        if (b.getWinner() == RED) {
             return winningValue;
         }
-        Side mySide = getSide();
-        Side opponent = mySide.opposite();
-
-        int mySquares = b.getSidesquares(mySide);
-        int oppSquares = b.getSidesquares(opponent);
-
-        return mySquares - oppSquares;
+        return blueCount - redCount;
     }
-
-    /**
-     * A random-number generator used for move selection.
-     */
-    private Random _random;
-
-    /**
-     * Used to convey moves discovered by minMax.
-     */
-    private int _foundMove;
 }
