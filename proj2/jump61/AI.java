@@ -40,7 +40,6 @@ class AI extends Player {
         assert getSide() == board.whoseMove();
         int choice = searchForMove();
         getGame().reportMove(board.row(choice), board.col(choice));
-        System.out.println(board.row(choice) + " " + board.col(choice));
         return String.format("%d %d", board.row(choice), board.col(choice));
     }
 
@@ -55,11 +54,11 @@ class AI extends Player {
         _foundMove = -1;
 
         if (getSide() == RED) {
-            minMax(work, 1, true, -1,
-                    Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+            minMax(work, 2, true, -1,
+                    Integer.MIN_VALUE, Integer.MAX_VALUE);
         } else {
             minMax(work, 1, true, -1,
-                    Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+                    Integer.MIN_VALUE, Integer.MAX_VALUE);
         }
         return _foundMove;
     }
@@ -74,7 +73,7 @@ class AI extends Player {
      * on BOARD, does not set _foundMove.
      */
     private int minMax(Board board, int depth, boolean saveMove,
-                       int sense, double alpha, double beta) {
+                       int sense, int alpha, int beta) {
         int currBest = -1;
         if (depth == 0 || board.getWinner() != null) {
             return staticEval(board, board.size() * board.size() + 1);
@@ -86,7 +85,7 @@ class AI extends Player {
             }
         }
         if (sense == 1) {
-            double maximum = Double.NEGATIVE_INFINITY;
+            int maximum = Integer.MIN_VALUE;
             for (int m : allMoves) {
                 Board g = new Board(board);
                 g.addSpot(g.whoseMove(), m);
@@ -108,7 +107,7 @@ class AI extends Player {
             }
 
         } else {
-            double minimum = Double.POSITIVE_INFINITY;
+            int minimum = Integer.MAX_VALUE;
             for (int m : allMoves) {
                 Board g = new Board(board);
                 g.addSpot(g.whoseMove(), m);

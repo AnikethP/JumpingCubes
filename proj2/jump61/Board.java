@@ -1,5 +1,8 @@
 package jump61;
 
+import afu.org.checkerframework.checker.igj.qual.I;
+
+import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -304,7 +307,7 @@ class Board {
     void addSpot(Side player, int n) {
         //System.out.println(this);
         internalSet(n, get(n).getSpots() + 1, player);
-        if (overfull(n)) {
+        if (overfull(n) && getWinner() == null) {
             jump(n);
         }
         markUndo();
@@ -388,66 +391,40 @@ class Board {
         internalSet(n, deltaSpots + get(n).getSpots(), player);
     }
 
+    private void addJumpSpot(int n, Side player){
+        internalSet(n, get(n).getSpots() + 1, player);
+        if (overfull(n) && getWinner() == null) {
+            jump(n);
+        }
+    }
     /**
      * Do all jumping on this board, assuming that initially, S is the only
      * square that might be over-full.
      */
     private void jump(int S) {
-        if (overfull(S) && getWinner() == null) {
-
-            _visited.add(S);
-            if (get(S).getSide() == RED) {
-                if (row(S) > 1) {
-                    if (getWinner() != null) {
-                        return;
-                    }
-                    simpleAdd(RED, sqNum(row(S), col(S)), -1);
-                    simpleAdd(RED, sqNum(row(S) - 1, col(S)), 1);
-                    _workQueue.add(sqNum(row(S) - 1, col(S)));
-                    if (getWinner() != null) {
-                        return;
-                    }
-                }
-                if (col(S) > 1) {
-                    if (getWinner() != null) {
-                        return;
-                    }
-                    simpleAdd(RED, sqNum(row(S), col(S)), -1);
-                    simpleAdd(RED, sqNum(row(S), col(S) - 1), 1);
-                    _workQueue.add(sqNum(row(S), col(S) - 1));
-                    if (getWinner() != null) {
-                        return;
-                    }
-                }
-                if (row(S) < size()) {
-                    if (getWinner() != null) {
-                        return;
-                    }
-                    simpleAdd(RED, sqNum(row(S), col(S)), -1);
-                    simpleAdd(RED, sqNum(row(S) + 1, col(S)), 1);
-                    _workQueue.add(sqNum(row(S) + 1, col(S)));
-                    if (getWinner() != null) {
-                        return;
-                    }
-                }
-                if (col(S) < size()) {
-                    if (getWinner() != null) {
-                        return;
-                    }
-                    simpleAdd(RED, sqNum(row(S), col(S)), -1);
-                    simpleAdd(RED, sqNum(row(S), col(S) + 1), 1);
-                    _workQueue.add(sqNum(row(S), col(S) + 1));
-                    if (getWinner() != null) {
-                        return;
-                    }
-                }
-            } else {
-                doRepeat(S);
-            }
-            for (int i = 0; i < _workQueue.size(); i++) {
-                jump(_workQueue.pop());
-            }
+        internalSet(S, 1, get(S).getSide());
+        ArrayList<Integer> neighbors = getAdjacent(S);
+        for(int i = 0; i < neighbors.size(); i++){
+            addJumpSpot(neighbors.get(i), get(S).getSide());
         }
+    }
+
+    private ArrayList<Integer> getAdjacent(int s){
+        ArrayList<Integer> all = new ArrayList<>();
+        if(exists(row(s) + 1, col(s))){
+            all.add(sqNum(row(s) + 1, col(s)));
+        }
+        if(exists(row(s) - 1, col(s))){
+            all.add(sqNum(row(s) - 1, col(s)));
+        }
+        if(exists(row(s), col(s) + 1)){
+            all.add(sqNum(row(s), col(s) + 1));
+        }
+        if(exists(row(s), col(s) - 1)){
+            all.add(sqNum(row(s), col(s) - 1));
+        }
+        return all;
+
     }
 
     /**

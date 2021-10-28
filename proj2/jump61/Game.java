@@ -101,7 +101,6 @@ class Game {
 
     /** Add a spot to R C, if legal to do so. */
     void makeMove(int r, int c) {
-        System.out.println(_board);
         System.out.println(_board.whoseMove() + " " + r + " " + c);
         assert _board.isLegal(_board.whoseMove(), r, c);
         _board.addSpot(_board.whoseMove(), r, c);
