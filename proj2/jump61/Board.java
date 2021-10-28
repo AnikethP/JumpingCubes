@@ -1,8 +1,5 @@
 package jump61;
 
-import afu.org.checkerframework.checker.igj.qual.I;
-
-import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Formatter;
