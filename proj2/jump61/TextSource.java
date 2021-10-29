@@ -1,17 +1,30 @@
 package jump61;
 
 import java.io.Reader;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-/** A CommandSource that takes commands from a Reader.
- *  @author P. N. Hilfinger
+/**
+ * A CommandSource that takes commands from a Reader.
+ *
+ * @author P. N. Hilfinger
  */
 class TextSource implements CommandSource {
 
-    /** A source of commands read from the concatenation of the content of
-     *  READERS. */
+    /**
+     * Source of command input.
+     */
+    private Scanner _inp;
+    /**
+     * Readers to use after the first.
+     */
+    private final ArrayList<Reader> _readers;
+
+    /**
+     * A source of commands read from the concatenation of the content of
+     * READERS.
+     */
     TextSource(List<Reader> readers) {
         if (readers.isEmpty()) {
             throw new IllegalArgumentException("must be at least one reader");
@@ -35,9 +48,4 @@ class TextSource implements CommandSource {
             return null;
         }
     }
-
-    /** Source of command input. */
-    private Scanner _inp;
-    /** Readers to use after the first. */
-    private ArrayList<Reader> _readers;
 }

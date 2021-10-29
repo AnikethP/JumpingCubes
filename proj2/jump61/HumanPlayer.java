@@ -1,24 +1,30 @@
 package jump61;
 
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import static jump61.Utils.*;
+import static jump61.Utils.toInt;
 
-/** A Player that gets its moves from manual input.
- *  @author Aniketh Prasad
+/**
+ * A Player that gets its moves from manual input.
+ *
+ * @author Aniketh Prasad
  */
 class HumanPlayer extends Player {
 
-    /** A new player initially playing COLOR taking manual input of
-     *  moves from GAME's input source. */
+    /**
+     * Syntax of a move.  Groups capture row and column.
+     */
+    private static final Pattern MOVE_PATN =
+            Pattern.compile("(\\d+)\\s+(\\d+)\\b");
+
+    /**
+     * A new player initially playing COLOR taking manual input of
+     * moves from GAME's input source.
+     */
     HumanPlayer(Game game, Side color) {
         super(game, color);
     }
-
-    /** Syntax of a move.  Groups capture row and column. */
-    private static final Pattern MOVE_PATN =
-        Pattern.compile("(\\d+)\\s+(\\d+)\\b");
 
     @Override
     String getMove() {
@@ -28,7 +34,7 @@ class HumanPlayer extends Player {
             String cmnd = game.getCommand();
             Matcher m = MOVE_PATN.matcher(cmnd);
             if (!m.matches() || board.isLegal(getSide(), toInt(m.group(1)),
-                                              toInt(m.group(2)))) {
+                    toInt(m.group(2)))) {
                 return cmnd;
             }
             game.reportError("invalid move: %s", cmnd);

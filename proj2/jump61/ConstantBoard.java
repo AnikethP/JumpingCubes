@@ -1,14 +1,23 @@
 package jump61;
 
-/** A ConstantBoard is a view of an existing Board that does not allow
- *  modifications. Changes made to the underlying Board are reflected in
- *  ConstantBoards formed from it.
- *  @author P. N. Hilfinger
+/**
+ * A ConstantBoard is a view of an existing Board that does not allow
+ * modifications. Changes made to the underlying Board are reflected in
+ * ConstantBoards formed from it.
+ *
+ * @author P. N. Hilfinger
  */
 class ConstantBoard extends Board {
 
-    /** A new ConstantBoard that allows a read-only view of BOARD. That is,
-     *  all operations are delegated to BOARD. */
+    /**
+     * Board to which all operations are delegated.
+     */
+    private final Board _board;
+
+    /**
+     * A new ConstantBoard that allows a read-only view of BOARD. That is,
+     * all operations are delegated to BOARD.
+     */
     ConstantBoard(Board board) {
         _board = board;
     }
@@ -58,12 +67,12 @@ class ConstantBoard extends Board {
         return _board.equals(obj);
     }
 
+    /* Mutators modified to do nothing. */
+
     @Override
     public int hashCode() {
         return _board.hashCode();
     }
-
-    /* Mutators modified to do nothing. */
 
     @Override
     void clear(int N) {
@@ -88,8 +97,5 @@ class ConstantBoard extends Board {
     @Override
     void undo() {
     }
-
-    /** Board to which all operations are delegated. */
-    private Board _board;
 
 }

@@ -393,7 +393,8 @@ class Board {
     /**
      * Do all jumping on this board, assuming that initially, S is the only
      * square that might be over-full.
-     * @param n spot number
+     *
+     * @param n      spot number
      * @param player color of player Side
      */
     private void addJumpSpot(int n, Side player) {
@@ -417,8 +418,9 @@ class Board {
 
     /**
      * Gets all the neighbors.
-     * @return ArrayList<Integer> arraylist containingi all neighbors
+     *
      * @param s square to find neighbors for.
+     * @return ArrayList<Integer> arraylist containingi all neighbors
      */
     private ArrayList<Integer> getAdjacent(int s) {
         ArrayList<Integer> all = new ArrayList<>();

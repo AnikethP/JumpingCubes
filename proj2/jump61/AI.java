@@ -100,7 +100,7 @@ class AI extends Player {
                 }
             }
             if (!saveMove) {
-                return (int) maximum;
+                return maximum;
             } else {
                 _foundMove = currBest;
                 return _foundMove;
@@ -122,7 +122,7 @@ class AI extends Player {
                 }
             }
             if (!saveMove) {
-                return (int) minimum;
+                return minimum;
             } else {
                 _foundMove = currBest;
                 return _foundMove;

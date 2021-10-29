@@ -2,8 +2,10 @@
  * University of California.  All rights reserved. */
 package jump61;
 
-/** An object that formats and sends messages and errors.
- *  @author P. N. Hilfinger
+/**
+ * An object that formats and sends messages and errors.
+ *
+ * @author P. N. Hilfinger
  */
 class TextReporter implements Reporter {
 
