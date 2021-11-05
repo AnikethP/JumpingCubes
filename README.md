@@ -19,6 +19,23 @@ After the player has moved, we repeat the following steps until no square is ove
 - Pick an overfull square.
 - For each neighbor of the overfull square, move one spot out of the square and into the neighbor (even if occupied by the opposing side).
 - Give each of these neighboring squares the player's color (if they don't have it already).
-- The order in which this happens, as it turns out, does not usually matter—that is, the end result will be the same regardless of which overfull square's spots are removed first, with the exception that the winning position might differ. A player wins when all squares are the player's color.
+
+The order in which this happens, as it turns out, does not usually matter—that is, the end result will be the same regardless of which overfull square's spots are removed first, with the exception that the winning position might differ. A player wins when all squares are the player's color.
 
 For example, given the board on the top (N=4) in Figure 2, if Red adds a spot to square 2:1, we get the board on the bottom after all the spots stop jumping.
+
+![image](https://user-images.githubusercontent.com/66244944/140439944-2841981f-6770-4a63-ab31-aeb1eecca91d.png)
+
+![image](https://user-images.githubusercontent.com/66244944/140439952-dda2c675-3118-48fc-8b6d-4f660050e4fe.png)
+
+**Figure 2.** Example of one jump creating another overfull cell. Square 2:2 becomes overfull after we add a spot to square 2:1 and perform the first jump, so we must jump again for square 2:2.
+
+The rules hold that the game is over as soon as one player's color covers the board. This is a slightly subtle point: it is easy to set up situations where the procedure given above for dealing with overfull squares loops infinitely, swapping spots around in an endless cycle, unless one is careful to stop as soon as a winning position appears. It is acceptable, in fact, for you to report winning positions in which the redistribution procedure described above is prematurely terminated, so that some squares remain overfull.
+
+For example, if, on Red's move, the board is as on the top of Figure 3 and Red moves to 3:1, then the board will turn entirely red. You are allowed to stop the process of redistributing spots when all squares are red, even though, depending on the order in which you do things, you could end up with the board on the bottom in the figure.
+
+![image](https://user-images.githubusercontent.com/66244944/140439996-f55d2a1f-02d9-4872-bbf8-f972ff0e6fc4.png)
+
+![image](https://user-images.githubusercontent.com/66244944/140440005-c218048e-4a40-41b4-a8da-233dd03a1d17.png)
+
+**Figure 3.** The board on the top shows a position just before Red's last move (to 3:1). The board on the bottom is one possible stopping point for spot redistribution (all squares now being one color), even though the squares at 1:3 and 4:1 are still overfull.
