@@ -109,9 +109,6 @@ class BoardWidget extends Pad {
         return new Dimension(_side, _side);
     }
 
-    /**
-     * FIXME.
-     */
     @Override
     public synchronized void paintComponent(Graphics2D g) {
         if (_board == null) {
@@ -148,7 +145,7 @@ class BoardWidget extends Pad {
 
     /**
      * Color and display the spots on the square at row R and column C
-     * on G.  (Used by paintComponent). FIXME
+     * on G.  (Used by paintComponent). 
      */
     private void displaySpots(Graphics2D g, int r, int c) {
 
@@ -198,7 +195,7 @@ class BoardWidget extends Pad {
     }
 
     /**
-     * Respond to the mouse click depicted by EVENT. FIXME
+     * Respond to the mouse click depicted by EVENT. 
      */
     public void doClick(String dummy, MouseEvent event) {
         if (_board.getWinner() != null) {

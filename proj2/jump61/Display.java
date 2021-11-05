@@ -33,7 +33,7 @@ class Display extends TopLevel implements View, CommandSource, Reporter {
 
     /**
      * A new window with given TITLE displaying GAME, and using COMMANDWRITER
-     * to send commands to the current game. FIXME
+     * to send commands to the current game.
      */
     Display(String title) {
         super(title, true);
@@ -98,7 +98,7 @@ class Display extends TopLevel implements View, CommandSource, Reporter {
     }
 
     /**
-     * Response to "New Game" button click. FIXME
+     * Response to "New Game" button click. 
      */
     void newGame(String dummy) {
         _commandQueue.offer("new");
@@ -106,7 +106,7 @@ class Display extends TopLevel implements View, CommandSource, Reporter {
     }
 
     /**
-     * FIXME.
+     * .
      */
     @Override
     public void update(Board board) {
